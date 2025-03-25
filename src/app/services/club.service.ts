@@ -12,7 +12,10 @@ export class ClubService {
   ) { }
 
   getClub(data: any) {
-    const url = `${this.urlApi}get-clubs?where=${data.where}`;
+    let url = `${this.urlApi}get-clubs?where=${data.where}`;
+    if (data.pagination_itemQuantity && data.pagination_step) {
+      url += `&pagination_itemQuantity=${data.pagination_itemQuantity}&pagination_step=${data.pagination_step}`;
+    }
 
     return this.http.get(url);
   }

@@ -32,6 +32,12 @@ export class ManageParticipantComponent {
   participants: any = [];
 
   participantWanted = '';
+  isLoading = false;
+  pagination = {
+    current_page: 0,
+    totalQuantity: 0,
+    last_page: 0,
+  };
 
   constructor(
     private participantService: ParticipantService
@@ -39,8 +45,10 @@ export class ManageParticipantComponent {
 
   }
 
-  ngOnInit(): void {
-    this.getParticipants();
+  async ngOnInit() {
+    this.isLoading = true;
+    await this.getParticipants();
+    this.isLoading = false;
   }
 
   async getParticipants(pagination_step = 1) {
@@ -55,6 +63,11 @@ export class ManageParticipantComponent {
       const response: any = await firstValueFrom(this.participantService.getParticipant(dataToSend));
       if (response.data) {
         this.participants = response.data.data;
+        this.pagination = {
+          current_page: response.data.current_page,
+          totalQuantity: response.data.total,
+          last_page: response.data.last_page,
+        };
       }
     } catch (error) {
       this.modalWarning.open('Ocurrió un error...');
@@ -87,5 +100,9 @@ export class ManageParticipantComponent {
     } catch (error) {
       this.modalWarning.open('Ocurrió un error...');
     }
+  }
+
+  numSequence(n: number): Array<number> {
+    return Array(n);
   }
 }

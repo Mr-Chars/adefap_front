@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { firstValueFrom, Subject } from 'rxjs';
-import { ModalWarningComponent } from '../modal-warning/modal-warning.component';
-import { ROLS } from '../../constants/generals';
+import { ModalWarningComponent } from '../../modal-warning/modal-warning.component';
+import { ROLS } from '../../../constants/generals';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserService } from '../../services/user.service';
-import { DisplayInputValidationMessageComponent } from '../../components/display-input-validation-message/display-input-validation-message.component';
+import { UserService } from '../../../services/user.service';
+import { DisplayInputValidationMessageComponent } from '../../../components/display-input-validation-message/display-input-validation-message.component';
 
 @Component({
   selector: 'app-modal-edit-user',
@@ -37,9 +37,9 @@ export class ModalEditUserComponent {
   async getUserById(id: number) {
     try {
       const dataToSend = {
-        where: JSON.stringify([
+        where: btoa(JSON.stringify([
           ['user.id', '=', id,]
-        ]),
+        ])),
       };
       const response: any = await firstValueFrom(this.userService.getUser(dataToSend));
       if (response.data) {

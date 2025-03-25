@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { firstValueFrom, Subject } from 'rxjs';
-import { DisplayInputValidationMessageComponent } from '../../components/display-input-validation-message/display-input-validation-message.component';
-import { ROLS } from '../../constants/generals';
-import { UserService } from '../../services/user.service';
-import { ModalWarningComponent } from '../modal-warning/modal-warning.component';
+import { DisplayInputValidationMessageComponent } from '../../../components/display-input-validation-message/display-input-validation-message.component';
+import { ROLS } from '../../../constants/generals';
+import { UserService } from '../../../services/user.service';
+import { ModalWarningComponent } from '../../modal-warning/modal-warning.component';
 
 @Component({
   selector: 'app-modal-user',
@@ -43,6 +43,7 @@ export class ModalUserComponent {
       const response: any = await firstValueFrom(this.userService.addUser(body));
       if (response.status) {
         this.modalWarning.open('Se agregó el usuario de manera correcta', 'success');
+        this.close(true);
       } else {
         this.modalWarning.open(response.error);
       }

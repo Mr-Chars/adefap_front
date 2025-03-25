@@ -33,32 +33,48 @@ export class ManageClubsComponent {
   clubs: any = [];
 
   clubWanted = '';
+  isLoading = false;
+  pagination = {
+    current_page: 0,
+    totalQuantity: 0,
+    last_page: 0,
+  };
   constructor(
     private clubService: ClubService,
   ) { }
 
-  ngOnInit(): void {
-    this.getClubs();
+  async ngOnInit() {
+    await this.getClubs();
   }
 
-  async getClubs() {
+  async getClubs(pagination_step = 1) {
+    this.isLoading = true;
     try {
       const dataToSend = {
         where: this.clubWanted ? btoa(JSON.stringify([
           ['clubs.name', 'like', '%' + this.clubWanted + '%']
         ])) : '',
+        pagination_itemQuantity: 10,
+        pagination_step,
       };
       const response: any = await firstValueFrom(this.clubService.getClub(dataToSend));
-      if (response.data) {
-        this.clubs = response.data;
+      if (response.data.data) {
+        this.clubs = response.data.data;
+        this.pagination = {
+          current_page: response.data.current_page,
+          totalQuantity: response.data.total,
+          last_page: response.data.last_page,
+        };
       }
     } catch (error) {
       this.modalWarning.open('Ocurrió un error...');
+    } finally {
+      this.isLoading = false;
     }
   }
 
   async openModalAddClub() {
-    const result = await this.modalAddClub.open();
+    await this.modalAddClub.open();
     this.getClubs();
   }
 
@@ -88,5 +104,9 @@ export class ManageClubsComponent {
     } catch (error) {
       this.modalWarning.open('Ocurrió un error...');
     }
+  }
+
+  numSequence(n: number): Array<number> {
+    return Array(n);
   }
 }

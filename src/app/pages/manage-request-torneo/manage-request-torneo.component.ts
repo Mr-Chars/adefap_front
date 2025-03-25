@@ -24,12 +24,20 @@ export class ManageRequestTorneoComponent {
 
   requestsTorneo: any = [];
   requestWanted = '';
+  isLoading = false;
+  pagination = {
+    current_page: 0,
+    totalQuantity: 0,
+    last_page: 0,
+  };
   constructor(
     private requestTorneoService: RequestTorneoService,
   ) { }
 
-  ngOnInit(): void {
-    this.getRequestTorneo();
+  async ngOnInit() {
+    this.isLoading = true;
+    await this.getRequestTorneo();
+    this.isLoading = false;
   }
 
   generatePdf(idRequest: any) {
@@ -48,6 +56,11 @@ export class ManageRequestTorneoComponent {
       const response: any = await firstValueFrom(this.requestTorneoService.getRequestTorneo(dataToSend));
       if (response.data.data) {
         this.requestsTorneo = response.data.data;
+        this.pagination = {
+          current_page: response.data.current_page,
+          totalQuantity: response.data.total,
+          last_page: response.data.last_page,
+        };
       }
     } catch (error) {
 
@@ -57,5 +70,9 @@ export class ManageRequestTorneoComponent {
   async openModalAddRequest() {
     const result = await this.modal.open();
     this.getRequestTorneo();
+  }
+
+  numSequence(n: number): Array<number> {
+    return Array(n);
   }
 }

@@ -68,8 +68,3 @@
     top: 10px;
     cursor: pointer;
 }
-
-.table-container {
-    display: grid;
-    overflow: auto;
-}

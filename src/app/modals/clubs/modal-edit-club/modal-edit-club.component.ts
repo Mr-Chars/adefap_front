@@ -47,9 +47,9 @@ export class ModalEditClubComponent {
   async getUserById(id: number) {
     try {
       const dataToSend = {
-        where: JSON.stringify([
+        where: btoa(JSON.stringify([
           ['clubs.id', '=', id,]
-        ]),
+        ])),
       };
       const response: any = await firstValueFrom(this.clubService.getClub(dataToSend));
       if (response.data) {
