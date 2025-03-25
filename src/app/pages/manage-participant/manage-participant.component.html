@@ -1,0 +1,52 @@
+<div class="box-main">
+    <app-sidebar style="display: contents;"></app-sidebar>
+
+    <div class="box-content">
+        <h2>Gestion de participantes</h2>
+
+        <div class="box-filters">
+            <div class="box-search-text">
+                <input [(ngModel)]="participantWanted" placeholder="Buscar participante ..." type="text"
+                    class="input-search-text">
+                <span (click)="getParticipants()" class="material-symbols-outlined search-btn">search</span>
+            </div>
+            <button (click)="openModalAddParticipant()" class="btn-add">Agregar participante</button>
+        </div>
+
+        <table class="box-table">
+            <thead>
+                <th>
+                    Nombre de participante
+                </th>
+                <th>
+                    Dni
+                </th>
+                <th>
+                    Celular
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let request of participants">
+                    <td>{{request.nombres}} {{request.apellido_paterno}} {{request.apellido_materno}}</td>
+                    <td>{{request.dni}}</td>
+                    <td>{{request.n_celular}}</td>
+                    <td>
+                        <span (click)="openModalEditParticipant(request.id)"
+                            class="material-symbols-outlined icon-edit">edit</span>
+                        <span (click)="deleteParticipant(request.id)"
+                            class="material-symbols-outlined icon-delete">delete</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<app-modal-add-participant></app-modal-add-participant>
+<app-modal-warning></app-modal-warning>
+<app-modal-edit-participant></app-modal-edit-participant>
+<app-modal-delete-participant></app-modal-delete-participant>

@@ -1,0 +1,43 @@
+<div class="box-main">
+    <app-sidebar style="display: contents;"></app-sidebar>
+
+    <div class="box-content">
+        <h2>Gestion de clubes</h2>
+
+        <div class="box-filters">
+            <div class="box-search-text">
+                <input [(ngModel)]="clubWanted" placeholder="Buscar club ..." type="text" class="input-search-text">
+                <span (click)="getClubs()" class="material-symbols-outlined search-btn">search</span>
+            </div>
+            <button (click)="openModalAddClub()" class="btn-add-club">Agregar club</button>
+        </div>
+
+        <table class="box-table">
+            <thead>
+                <th>
+                    Nombre de club
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let request of clubs">
+                    <td>{{request.name}}</td>
+                    <td>
+                        <span (click)="openModalEditClub(request.id)"
+                            class="material-symbols-outlined icon-edit-club">edit</span>
+                        <span (click)="deleteClub(request.id)"
+                            class="material-symbols-outlined icon-delete-club">delete</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<app-modal-add-club></app-modal-add-club>
+<app-modal-edit-club></app-modal-edit-club>
+<app-modal-delete-club></app-modal-delete-club>
+<app-modal-warning></app-modal-warning>

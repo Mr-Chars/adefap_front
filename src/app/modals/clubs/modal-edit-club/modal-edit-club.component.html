@@ -1,0 +1,20 @@
+<div class="backdrop" *ngIf="isOpen">
+    <div class="modal">
+        <span class="material-symbols-outlined icon-close" (click)="close(false)">close</span>
+
+        <h3 class="title-form">Editar club</h3>
+        <form [formGroup]="clubForm" action="" class="box-form-request" (ngSubmit)="editClub()">
+            <div class="box-singular-item">
+                <label for="name">Nombre</label>
+                <input type="text" formControlName="name">
+                <div *ngIf="clubForm.controls.name.invalid && (clubForm.controls.name.dirty || clubForm.controls.name.touched)"
+                    class="display-errors">
+                    <app-display-input-validation-message [type]="clubForm.controls.name.errors">
+                    </app-display-input-validation-message>
+                </div>
+            </div>
+            <button type="submit" [disabled]="!clubForm.valid" class="btn-add">Agregar</button>
+        </form>
+    </div>
+</div>
+<app-modal-warning></app-modal-warning>

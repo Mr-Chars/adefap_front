@@ -1,0 +1,24 @@
+<div class="box-sidebar">
+    <div class="sidebar-header">
+        <img src="/assets/img/logo.png" alt="">
+        <span class="greeting">Hola {{nameUserLogged}}</span>
+    </div>
+    <div routerLinkActive="active" class="item-menu" [routerLink]="['/manage-request-torneo']">
+        <span class="material-symbols-outlined">fact_check</span>
+        Gestionar solicitudes
+    </div>
+    <div routerLinkActive="active" class="item-menu" [routerLink]="['/manage-participants']">
+        <span class="material-symbols-outlined">fact_check</span>
+        Gestionar participantes
+    </div>
+    <div routerLinkActive="active" class="item-menu" [routerLink]="['/manage-clubs']">
+        <span class="material-symbols-outlined">fact_check</span>
+        Gestionar clubes
+    </div>
+    <div *ngIf="+roleLogged===1" routerLinkActive="active" class="item-menu" [routerLink]="['/manage-users']">
+        <span class="material-symbols-outlined">fact_check</span>
+        Gestionar usuarios
+    </div>
+
+    <button class="btn-close-session" (click)="closeSession()">Cerrar sesión</button>
+</div>

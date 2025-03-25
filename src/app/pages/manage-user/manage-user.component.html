@@ -1,0 +1,51 @@
+<div class="box-main">
+    <app-sidebar style="display: contents;"></app-sidebar>
+
+    <div class="box-content">
+        <h2>Gestion de usuarios</h2>
+
+        <div class="box-filters">
+            <div class="box-search-text">
+                <input [(ngModel)]="userWanted" placeholder="Buscar usuario ..." type="text" class="input-search-text">
+                <span (click)="getUsers()" class="material-symbols-outlined search-btn">search</span>
+            </div>
+            <button (click)="openModalAddUser()" class="btn-add-user">Agregar usuario</button>
+        </div>
+
+        <table class="box-table">
+            <thead>
+                <th>
+                    Nombres
+                </th>
+                <th>
+                    Nombre de usuario
+                </th>
+                <th>
+                    Rol
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let request of users">
+                    <td>{{request.name}}</td>
+                    <td>{{request.username}}</td>
+                    <td>{{request.role_name}}</td>
+                    <td>
+                        <span (click)="openModalEditUser(request.id)"
+                            class="material-symbols-outlined icon-edit-user">edit</span>
+                        <span (click)="deleteUser(request.id)"
+                            class="material-symbols-outlined icon-delete-user">delete</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<app-modal-user></app-modal-user>
+<app-modal-warning></app-modal-warning>
+<app-modal-delete-user></app-modal-delete-user>
+<app-modal-edit-user></app-modal-edit-user>

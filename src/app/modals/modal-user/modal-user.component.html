@@ -1,0 +1,52 @@
+<div class="backdrop" *ngIf="isOpen">
+    <div class="modal">
+        <span class="material-symbols-outlined icon-close" (click)="close(false)">close</span>
+
+        <h3 class="title-form">Agregar nuevo usuario</h3>
+        <form [formGroup]="userForm" action="" class="box-form-request" (ngSubmit)="addUser()">
+            <div class="box-singular-item">
+                <label for="name">Nombres</label>
+                <input type="text" formControlName="name">
+                <div *ngIf="userForm.controls.name.invalid && (userForm.controls.name.dirty || userForm.controls.name.touched)"
+                    class="display-errors">
+                    <app-display-input-validation-message [type]="userForm.controls.name.errors">
+                    </app-display-input-validation-message>
+                </div>
+            </div>
+            <div class="box-singular-item">
+                <label for="username">Nombre de usuario</label>
+                <input type="text" formControlName="username">
+                <div *ngIf="userForm.controls.username.invalid && (userForm.controls.username.dirty || userForm.controls.username.touched)"
+                    class="display-errors">
+                    <app-display-input-validation-message [type]="userForm.controls.username.errors">
+                    </app-display-input-validation-message>
+                </div>
+            </div>
+            <div class="box-singular-item">
+                <label for="role">Rol</label>
+                <select formControlName="role">
+                    <option value="">Seleccione un rol</option>
+                    <option *ngFor="let rol of ROLS" [value]="rol.id">
+                        {{rol.name}}
+                    </option>
+                </select>
+                <div *ngIf="userForm.controls.role.invalid && (userForm.controls.role.dirty || userForm.controls.role.touched)"
+                    class="display-errors">
+                    <app-display-input-validation-message [type]="userForm.controls.role.errors">
+                    </app-display-input-validation-message>
+                </div>
+            </div>
+            <div class="box-singular-item">
+                <label for="password">Contraseña</label>
+                <input type="password" formControlName="password">
+                <div *ngIf="userForm.controls.password.invalid && (userForm.controls.password.dirty || userForm.controls.password.touched)"
+                    class="display-errors">
+                    <app-display-input-validation-message [type]="userForm.controls.password.errors">
+                    </app-display-input-validation-message>
+                </div>
+            </div>
+            <button type="submit" [disabled]="!userForm.valid" class="btn-add">Agregar</button>
+        </form>
+    </div>
+</div>
+<app-modal-warning></app-modal-warning>

@@ -1,0 +1,142 @@
+<div class="backdrop" *ngIf="isOpen">
+    <div class="modal">
+        <span class="material-symbols-outlined icon-close" (click)="close(false)">close</span>
+
+        <h3 class="title-form">Actualizar participante</h3>
+        <form [formGroup]="participantForm" action="" class="box-form-request" (ngSubmit)="updateParticipant()">
+            <div class="box-formitem-two">
+                <div class="box-singular-item">
+                    <label for="nombres">Nombre</label>
+                    <input type="text" formControlName="nombres">
+                    <div *ngIf="participantForm.controls.nombres.invalid && (participantForm.controls.nombres.dirty || participantForm.controls.nombres.touched)"
+                        class="display-errors">
+                        <app-display-input-validation-message [type]="participantForm.controls.nombres.errors">
+                        </app-display-input-validation-message>
+                    </div>
+                </div>
+                <div class="box-singular-item">
+                    <label for="dni">DNI</label>
+                    <input type="text" formControlName="dni">
+                    <div *ngIf="participantForm.controls.dni.invalid && (participantForm.controls.dni.dirty || participantForm.controls.dni.touched)"
+                        class="display-errors">
+                        <app-display-input-validation-message [type]="participantForm.controls.dni.errors">
+                        </app-display-input-validation-message>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-formitem-two">
+                <div class="box-singular-item">
+                    <label for="apellido_paterno">Apellido paterno</label>
+                    <input type="text" formControlName="apellido_paterno">
+                    <div *ngIf="participantForm.controls.apellido_paterno.invalid && (participantForm.controls.apellido_paterno.dirty || participantForm.controls.apellido_paterno.touched)"
+                        class="display-errors">
+                        <app-display-input-validation-message [type]="participantForm.controls.apellido_paterno.errors">
+                        </app-display-input-validation-message>
+                    </div>
+                </div>
+                <div class="box-singular-item">
+                    <label for="apellido_materno">Apellido materno</label>
+                    <input type="text" formControlName="apellido_materno">
+                    <div *ngIf="participantForm.controls.apellido_materno.invalid && (participantForm.controls.apellido_materno.dirty || participantForm.controls.apellido_materno.touched)"
+                        class="display-errors">
+                        <app-display-input-validation-message [type]="participantForm.controls.apellido_materno.errors">
+                        </app-display-input-validation-message>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-formitem-two">
+                <div class="box-singular-item">
+                    <label for="fecha_nacimiento">Fecha de nacimiento</label>
+                    <input type="date" formControlName="fecha_nacimiento">
+                    <div *ngIf="participantForm.controls.fecha_nacimiento.invalid && (participantForm.controls.fecha_nacimiento.dirty || participantForm.controls.fecha_nacimiento.touched)"
+                        class="display-errors">
+                        <app-display-input-validation-message [type]="participantForm.controls.fecha_nacimiento.errors">
+                        </app-display-input-validation-message>
+                    </div>
+                </div>
+                <div class="box-singular-item">
+                    <label for="ubigeo_nacimiento">Ubigeo lugar de nacimiento</label>
+                    <div class="box-input-with-icon">
+                        <input type="text" formControlName="ubigeo_nacimiento" readonly>
+                        <span (click)="chooseUbigeoLugarNacimiento()"
+                            class="material-symbols-outlined search-btn">search</span>
+                    </div>
+                    <div *ngIf="participantForm.controls.ubigeo_nacimiento.invalid && (participantForm.controls.ubigeo_nacimiento.dirty || participantForm.controls.ubigeo_nacimiento.touched)"
+                        class="display-errors">
+                        <app-display-input-validation-message
+                            [type]="participantForm.controls.ubigeo_nacimiento.errors">
+                        </app-display-input-validation-message>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-formitem-two">
+                <div class="box-singular-item">
+                    <label for="n_celular"># celular</label>
+                    <input type="text" formControlName="n_celular">
+                    <div *ngIf="participantForm.controls.n_celular.invalid && (participantForm.controls.n_celular.dirty || participantForm.controls.n_celular.touched)"
+                        class="display-errors">
+                        <app-display-input-validation-message [type]="participantForm.controls.n_celular.errors">
+                        </app-display-input-validation-message>
+                    </div>
+                </div>
+                <div class="box-singular-item">
+                    <label for="talla">Talla</label>
+                    <input type="text" formControlName="talla">
+                    <div *ngIf="participantForm.controls.talla.invalid && (participantForm.controls.talla.dirty || participantForm.controls.talla.touched)"
+                        class="display-errors">
+                        <app-display-input-validation-message [type]="participantForm.controls.talla.errors">
+                        </app-display-input-validation-message>
+                    </div>
+                </div>
+            </div>
+            <div class="box-formitem-two">
+                <div class="box-singular-item">
+                    <label for="domicilio">Domicilio</label>
+                    <input type="text" formControlName="domicilio">
+                    <div *ngIf="participantForm.controls.domicilio.invalid && (participantForm.controls.domicilio.dirty || participantForm.controls.domicilio.touched)"
+                        class="display-errors">
+                        <app-display-input-validation-message [type]="participantForm.controls.domicilio.errors">
+                        </app-display-input-validation-message>
+                    </div>
+                </div>
+                <div class="box-singular-item">
+                    <label for="ubigeo_domicilio">Distrito domicilio</label>
+
+                    <div class="box-input-with-icon">
+                        <input type="text" formControlName="ubigeo_domicilio" readonly>
+                        <span (click)="chooseUbigeoDomicilio()"
+                            class="material-symbols-outlined search-btn">search</span>
+                    </div>
+
+                    <div *ngIf="participantForm.controls.ubigeo_domicilio.invalid && (participantForm.controls.ubigeo_domicilio.dirty || participantForm.controls.ubigeo_domicilio.touched)"
+                        class="display-errors">
+                        <app-display-input-validation-message [type]="participantForm.controls.ubigeo_domicilio.errors">
+                        </app-display-input-validation-message>
+                    </div>
+                </div>
+            </div>
+            <div class="box-formitem-two">
+                <div class="box-singular-item">
+                    <label for="peso">Peso</label>
+                    <input type="text" formControlName="peso">
+                    <div *ngIf="participantForm.controls.peso.invalid && (participantForm.controls.peso.dirty || participantForm.controls.peso.touched)"
+                        class="display-errors">
+                        <app-display-input-validation-message [type]="participantForm.controls.peso.errors">
+                        </app-display-input-validation-message>
+                    </div>
+                </div>
+                <div class="box-singular-item">
+                    <label for="participantPhoto">Foto participante</label>
+                    <input type="file" (change)="onFileSelected($event)" accept="image/*">
+                    <img *ngIf="base64Image" [src]="base64Image" alt="Vista previa de la imagen" width="200">
+                </div>
+            </div>
+            <button type="submit" [disabled]="!participantForm.valid" class="btn-submit">Agregar</button>
+        </form>
+    </div>
+</div>
+<app-modal-warning></app-modal-warning>
+<app-modal-ubigeos></app-modal-ubigeos>

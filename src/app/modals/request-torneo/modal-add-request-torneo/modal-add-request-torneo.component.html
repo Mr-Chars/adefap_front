@@ -1,0 +1,143 @@
+<div class="backdrop" *ngIf="isOpen">
+    <div class="modal">
+        <span class="material-symbols-outlined icon-close" (click)="close(false)">close</span>
+
+        <h3 class="title-form">Agregar nuevo requerimiento</h3>
+        <form [formGroup]="requestTorneoForm" class="box-form-request" (ngSubmit)="addRequest()">
+            <h3 class="title-separation">Datos del participante:</h3>
+            <div class="box-formitem-two">
+                <div class="box-singular-item">
+                    <label for="dni">DNI</label>
+                    <div class="box-input-with-icon">
+                        <input type="text" formControlName="dni">
+                        <span (click)="searchParticipanteById()"
+                            class="material-symbols-outlined search-btn">search</span>
+                    </div>
+                    <div *ngIf="requestTorneoForm.controls.dni.invalid && (requestTorneoForm.controls.dni.dirty || requestTorneoForm.controls.dni.touched)"
+                        class="display-errors">
+                        <app-display-input-validation-message [type]="requestTorneoForm.controls.dni.errors">
+                        </app-display-input-validation-message>
+                    </div>
+                </div>
+                <div class="box-singular-item">
+                    <label for="nombres">Nombres</label>
+                    <input type="text" formControlName="nombres" readonly>
+                </div>
+            </div>
+            <div class="box-formitem-two">
+                <div class="box-singular-item">
+                    <label for="apellido_paterno">Apellido paterno</label>
+                    <input type="text" formControlName="apellido_paterno" readonly>
+                </div>
+                <div class="box-singular-item">
+                    <label for="apellido_materno">Apellido materno</label>
+                    <input type="text" formControlName="apellido_materno" readonly>
+                </div>
+            </div>
+            <div class="box-formitem-two">
+                <div class="box-singular-item">
+                    <label for="fecha_nacimiento">Fecha de nacimiento</label>
+                    <input type="date" formControlName="fecha_nacimiento" readonly>
+                </div>
+                <div class="box-singular-item">
+                    <label for="distrito_nacimiento">Distrito de nacimiento</label>
+                    <input type="text" formControlName="distrito_nacimiento" readonly>
+                </div>
+            </div>
+
+            <div class="box-formitem-two">
+                <div class="box-singular-item">
+                    <label for="domicilio">Domicilio</label>
+                    <input type="text" formControlName="domicilio" readonly>
+                </div>
+                <div class="box-singular-item">
+                    <label for="distrito_domicilio">Distrito domicilio</label>
+                    <input type="text" formControlName="distrito_domicilio" readonly>
+                </div>
+            </div>
+            <div class="box-formitem-two">
+                <div class="box-singular-item">
+                    <label for="n_celular"># celular</label>
+                    <input type="text" formControlName="n_celular" readonly>
+                </div>
+                <div class="box-singular-item">
+                    <label for="talla">Talla</label>
+                    <input type="text" formControlName="talla" readonly>
+                </div>
+            </div>
+            <div class="box-formitem-two">
+                <div class="box-singular-item">
+                    <label for="peso">Peso</label>
+                    <input type="text" formControlName="peso" readonly>
+                </div>
+                <div class="box-singular-item">
+                    <label for="participantPhoto">Foto participante</label>
+                    <div>
+                        <img class="img-participant" *ngIf="base64Image" [src]="base64Image"
+                            alt="Vista previa de la imagen">
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="title-separation">Datos adicionales:</h3>
+            <div class="box-formitem-two">
+                <div class="box-singular-item">
+                    <label for="id_club">Nombre del club</label>
+                    <select formControlName="id_club">
+                        <option value="">Seleccione un club</option>
+                        <option *ngFor="let club of clubs" [value]="club.id">
+                            {{club.name}}
+                        </option>
+                    </select>
+                    <div *ngIf="requestTorneoForm.controls.id_club.invalid && (requestTorneoForm.controls.id_club.dirty || requestTorneoForm.controls.id_club.touched)"
+                        class="display-errors">
+                        <app-display-input-validation-message [type]="requestTorneoForm.controls.id_club.errors">
+                        </app-display-input-validation-message>
+                    </div>
+                </div>
+                <div class="box-singular-item">
+                    <label for="year_estudios">Año de estudios</label>
+                    <!-- <input type="text" formControlName="year_estudios"> -->
+
+                    <select formControlName="year_estudios">
+                        <option value="">Seleccione un año</option>
+                        <option *ngFor="let year of lastYears(1997)" [value]="year">
+                            {{year}}
+                        </option>
+                    </select>
+                    <div *ngIf="requestTorneoForm.controls.year_estudios.invalid && (requestTorneoForm.controls.year_estudios.dirty || requestTorneoForm.controls.year_estudios.touched)"
+                        class="display-errors">
+                        <app-display-input-validation-message [type]="requestTorneoForm.controls.year_estudios.errors">
+                        </app-display-input-validation-message>
+                    </div>
+                </div>
+            </div>
+            <div class="box-formitem-two">
+                <div class="box-singular-item">
+                    <label for="centro_estudios">Centro de estudios</label>
+                    <input type="text" formControlName="centro_estudios">
+                    <div *ngIf="requestTorneoForm.controls.centro_estudios.invalid && (requestTorneoForm.controls.centro_estudios.dirty || requestTorneoForm.controls.centro_estudios.touched)"
+                        class="display-errors">
+                        <app-display-input-validation-message
+                            [type]="requestTorneoForm.controls.centro_estudios.errors">
+                        </app-display-input-validation-message>
+                    </div>
+                </div>
+                <div class="box-singular-item">
+                    <label for="distrito_centro_estudios">Distrito c.estudios</label>
+                    <button type="button" (click)="chooseUbigeoCentroEstudio()">choose ubigeo</button>
+                    <input type="text" formControlName="distrito_centro_estudios" readonly>
+                    <div *ngIf="requestTorneoForm.controls.distrito_centro_estudios.invalid && (requestTorneoForm.controls.distrito_centro_estudios.dirty || requestTorneoForm.controls.distrito_centro_estudios.touched)"
+                        class="display-errors">
+                        <app-display-input-validation-message
+                            [type]="requestTorneoForm.controls.distrito_centro_estudios.errors">
+                        </app-display-input-validation-message>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" [disabled]="!requestTorneoForm.valid" class="btn-add">Agregar</button>
+        </form>
+    </div>
+</div>
+<app-modal-warning></app-modal-warning>
+<app-modal-ubigeos></app-modal-ubigeos>

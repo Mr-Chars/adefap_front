@@ -1,0 +1,47 @@
+<div class="box-main">
+    <app-sidebar style="display: contents;"></app-sidebar>
+
+    <div class="box-content">
+        <h2>Gestion de solicitudes</h2>
+
+        <div class="box-filters">
+            <div class="box-search-text">
+                <input [(ngModel)]="requestWanted" placeholder="Buscar requerimiento ..." type="text"
+                    class="input-search-text">
+                <span (click)="getRequestTorneo()" class="material-symbols-outlined search-btn">search</span>
+            </div>
+            <button (click)="openModalAddRequest()" class="btn-add-request">Agregar requerimiento</button>
+        </div>
+        <div style="display: grid;">
+            <div class="table-container">
+                <table class="box-table">
+                    <thead>
+                        <th>Nombre completo</th>
+                        <th>Centro de estudios</th>
+                        <th>Lugar de nacimiento</th>
+                        <th>Dni</th>
+                        <th>Celular</th>
+                        <th>Acciones</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let request of requestsTorneo">
+                            <td>{{request.participant_nombres}} {{request.participant_apellido_paterno}}
+                                {{request.participant_apellido_materno}}</td>
+                            <td>{{request.centro_estudios}}</td>
+                            <td>{{request.lugar_nacimiento}}</td>
+                            <td>{{request.participant_dni}}</td>
+                            <td>{{request.participant_n_celular}}</td>
+                            <td>
+                                <a [href]="generatePdf(request.id)" target="_blank">
+                                    <span class="material-symbols-outlined">picture_as_pdf</span>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-modal-add-request-torneo></app-modal-add-request-torneo>
