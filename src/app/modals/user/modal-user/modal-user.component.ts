@@ -66,5 +66,6 @@ export class ModalUserComponent {
   close(response: boolean) {
     this.responseSubject.next(response);
     this.responseSubject.complete();
+    this.userForm.reset();
   }
 }

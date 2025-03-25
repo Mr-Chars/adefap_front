@@ -94,3 +94,9 @@
     top: 6px;
     cursor: pointer;
 }
+
+.img-participant {
+    max-width: 75px;
+    display: block;
+    margin: auto;
+}

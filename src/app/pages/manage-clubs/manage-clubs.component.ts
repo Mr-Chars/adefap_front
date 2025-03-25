@@ -43,8 +43,8 @@ export class ManageClubsComponent {
     private clubService: ClubService,
   ) { }
 
-  async ngOnInit() {
-    await this.getClubs();
+  ngOnInit() {
+    this.getClubs();
   }
 
   async getClubs(pagination_step = 1) {

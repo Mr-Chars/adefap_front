@@ -94,22 +94,6 @@
             </div>
             <div class="box-formitem-two">
                 <div class="box-singular-item">
-                    <label for="peso">Peso</label>
-                    <input type="text" formControlName="peso">
-                    <div *ngIf="participantForm.controls.peso.invalid && (participantForm.controls.peso.dirty || participantForm.controls.peso.touched)"
-                        class="display-errors">
-                        <app-display-input-validation-message [type]="participantForm.controls.peso.errors">
-                        </app-display-input-validation-message>
-                    </div>
-                </div>
-                <div class="box-singular-item">
-                    <label for="participantPhoto">Foto participante</label>
-                    <input type="file" (change)="onFileSelected($event)" accept="image/*">
-                    <img *ngIf="base64Image" [src]="base64Image" alt="Vista previa de la imagen" width="200">
-                </div>
-            </div>
-            <div class="box-formitem-two">
-                <div class="box-singular-item">
                     <label for="domicilio">Domicilio</label>
                     <input type="text" formControlName="domicilio">
                     <div *ngIf="participantForm.controls.domicilio.invalid && (participantForm.controls.domicilio.dirty || participantForm.controls.domicilio.touched)"
@@ -131,6 +115,25 @@
                         class="display-errors">
                         <app-display-input-validation-message [type]="participantForm.controls.ubigeo_domicilio.errors">
                         </app-display-input-validation-message>
+                    </div>
+                </div>
+            </div>
+            <div class="box-formitem-two">
+                <div class="box-singular-item">
+                    <label for="peso">Peso</label>
+                    <input type="text" formControlName="peso">
+                    <div *ngIf="participantForm.controls.peso.invalid && (participantForm.controls.peso.dirty || participantForm.controls.peso.touched)"
+                        class="display-errors">
+                        <app-display-input-validation-message [type]="participantForm.controls.peso.errors">
+                        </app-display-input-validation-message>
+                    </div>
+                </div>
+                <div class="box-singular-item">
+                    <label for="participantPhoto">Foto participante</label>
+                    <input type="file" (change)="onFileSelected($event)" accept="image/*">
+                    <div>
+                        <img class="img-participant" *ngIf="base64Image" [src]="base64Image"
+                            alt="Vista previa de la imagen" />
                     </div>
                 </div>
             </div>

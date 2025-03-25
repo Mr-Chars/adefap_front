@@ -45,13 +45,12 @@ export class ManageParticipantComponent {
 
   }
 
-  async ngOnInit() {
-    this.isLoading = true;
-    await this.getParticipants();
-    this.isLoading = false;
+  ngOnInit() {
+    this.getParticipants();
   }
 
   async getParticipants(pagination_step = 1) {
+    this.isLoading = true;
     try {
       const dataToSend = {
         where: this.participantWanted ? btoa(JSON.stringify([
@@ -71,6 +70,8 @@ export class ManageParticipantComponent {
       }
     } catch (error) {
       this.modalWarning.open('Ocurrió un error...');
+    } finally {
+      this.isLoading = false;
     }
   }
 

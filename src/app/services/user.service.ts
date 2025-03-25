@@ -17,20 +17,30 @@ export class UserService {
     let url = `${this.urlApi}get-users?where=${data.where}`;
     if (data.pagination_itemQuantity && data.pagination_step) {
       url += `&pagination_itemQuantity=${data.pagination_itemQuantity}&pagination_step=${data.pagination_step}`;
-    }
+      return this.http.get(url).pipe(
+        map((response: any) => ({
+          ...response,
+          data: {
+            ...response.data,
+            data: response.data.data.map((item: any) => ({
+              ...item,
+              role_name: ROLS.find((rol) => +rol.id === +item.role)?.name
+            }))
+          }
+        }))
+      );
+    } else {
 
-    return this.http.get(url).pipe(
-      map((response: any) => ({
-        ...response,
-        data: {
-          ...response.data,
-          data: response.data.data.map((item: any) => ({
+      return this.http.get(url).pipe(
+        map((response: any) => ({
+          ...response,
+          data: response.data.map((item: any) => ({
             ...item,
             role_name: ROLS.find((rol) => +rol.id === +item.role)?.name
           }))
-        }
-      }))
-    );
+        }))
+      );
+    }
   }
 
   addUser(body: any) {

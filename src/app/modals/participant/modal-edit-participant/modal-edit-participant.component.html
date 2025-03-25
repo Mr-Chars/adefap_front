@@ -2,7 +2,7 @@
     <div class="modal">
         <span class="material-symbols-outlined icon-close" (click)="close(false)">close</span>
 
-        <h3 class="title-form">Actualizar participante</h3>
+        <h3 class="title-form">Editar participante</h3>
         <form [formGroup]="participantForm" action="" class="box-form-request" (ngSubmit)="updateParticipant()">
             <div class="box-formitem-two">
                 <div class="box-singular-item">
@@ -131,10 +131,13 @@
                 <div class="box-singular-item">
                     <label for="participantPhoto">Foto participante</label>
                     <input type="file" (change)="onFileSelected($event)" accept="image/*">
-                    <img *ngIf="base64Image" [src]="base64Image" alt="Vista previa de la imagen" width="200">
+                    <div>
+                        <img class="img-participant" *ngIf="base64Image" [src]="base64Image"
+                            alt="Vista previa de la imagen" />
+                    </div>
                 </div>
             </div>
-            <button type="submit" [disabled]="!participantForm.valid" class="btn-submit">Agregar</button>
+            <button type="submit" [disabled]="!participantForm.valid" class="btn-submit">Editar</button>
         </form>
     </div>
 </div>

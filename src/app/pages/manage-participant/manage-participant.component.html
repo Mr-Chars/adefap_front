@@ -53,16 +53,17 @@
                 </div>
             </ng-container>
             <ng-container *ngIf="numSequence(+pagination.last_page).length>4">
-                <div *ngIf="pagination.current_page>1" class="item-paginator" [ngStyle]="{'background-color': '#fff',
-                'color': '#000'}" (click)="getParticipants(pagination.current_page-1)">
+                <div *ngIf="pagination.current_page>1" class="item-paginator"
+                    [ngStyle]="{'background-color': '#fff','color': '#000'}"
+                    (click)="getParticipants(pagination.current_page-1)">
                     {{pagination.current_page-1}}
                 </div>
-                <div class="item-paginator" [ngStyle]="{'background-color': '#fff',
-                    'color': '#000'}">
+                <div class="item-paginator" [ngStyle]="{'background-color': '#fff','color': '#000'}">
                     {{pagination.current_page}}
                 </div>
-                <div *ngIf="pagination.current_page<pagination.last_page" class="item-paginator" [ngStyle]="{'background-color': '#fff',
-                'color': '#000'}" (click)="getParticipants(pagination.current_page+1)">
+                <div *ngIf="pagination.current_page<pagination.last_page" class="item-paginator"
+                    [ngStyle]="{'background-color': '#fff','color': '#000'}"
+                    (click)="getParticipants(pagination.current_page+1)">
                     {{pagination.current_page+1}}
                 </div>
             </ng-container>

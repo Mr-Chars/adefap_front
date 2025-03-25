@@ -2,7 +2,7 @@
     <div class="modal">
         <span class="material-symbols-outlined icon-close" (click)="close(false)">close</span>
 
-        <h3 class="title-form">Modificar usuario</h3>
+        <h3 class="title-form">Editar usuario</h3>
         <form [formGroup]="userForm" action="" class="box-form-request" (ngSubmit)="editUser()">
             <div class="box-singular-item">
                 <label for="name">Nombres</label>
@@ -45,7 +45,7 @@
                     </app-display-input-validation-message>
                 </div>
             </div>
-            <button type="submit" [disabled]="!userForm.valid" class="btn-add">Actualizar</button>
+            <button type="submit" [disabled]="!userForm.valid" class="btn-add">Editar</button>
         </form>
     </div>
 </div>
