@@ -15,6 +15,10 @@
         <span class="material-symbols-outlined">fact_check</span>
         Gestionar clubes
     </div>
+    <div routerLinkActive="active" class="item-menu" [routerLink]="['/manage-centro-estudios']">
+        <span class="material-symbols-outlined">fact_check</span>
+        Gestionar centro estudios
+    </div>
     <div *ngIf="+roleLogged===1" routerLinkActive="active" class="item-menu" [routerLink]="['/manage-users']">
         <span class="material-symbols-outlined">fact_check</span>
         Gestionar usuarios

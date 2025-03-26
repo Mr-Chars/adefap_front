@@ -8,6 +8,7 @@ import { ManageUserComponent } from './pages/manage-user/manage-user.component';
 import { CheckIfIsAdminGuard } from './guards/check-if-is-admin.guard';
 import { ManageClubsComponent } from './pages/manage-clubs/manage-clubs.component';
 import { ManageParticipantComponent } from './pages/manage-participant/manage-participant.component';
+import { ManageCentroEstudiosComponent } from './pages/manage-centro-estudios/manage-centro-estudios.component';
 
 export const routes: Routes = [
     {
@@ -30,6 +31,12 @@ export const routes: Routes = [
     {
         path: 'manage-clubs',
         component: ManageClubsComponent,
+        canActivate: [CheckIfIsLogoutGuard],
+        // children: STORE_ROUTES
+    },
+    {
+        path: 'manage-centro-estudios',
+        component: ManageCentroEstudiosComponent,
         canActivate: [CheckIfIsLogoutGuard],
         // children: STORE_ROUTES
     },
