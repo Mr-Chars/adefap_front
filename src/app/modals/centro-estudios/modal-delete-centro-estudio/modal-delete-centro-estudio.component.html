@@ -1,1 +1,10 @@
-<p>modal-delete-centro-estudio works!</p>
+<div class="backdrop" *ngIf="isOpen">
+    <div class="modal">
+        <h2>Confirmación</h2>
+        <p>¿Estás seguro de continuar?</p>
+        <div class="box-btn-events">
+            <button class="btn-confirm" (click)="close(true)">Aceptar</button>
+            <button class="btn-cancel" (click)="close(false)">Cancelar</button>
+        </div>
+    </div>
+</div>

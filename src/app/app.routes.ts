@@ -20,31 +20,26 @@ export const routes: Routes = [
         path: 'manage-request-torneo',
         component: ManageRequestTorneoComponent,
         canActivate: [CheckIfIsLogoutGuard],
-        // children: STORE_ROUTES
     },
     {
         path: 'manage-participants',
         component: ManageParticipantComponent,
         canActivate: [CheckIfIsLogoutGuard],
-        // children: STORE_ROUTES
     },
     {
         path: 'manage-clubs',
         component: ManageClubsComponent,
         canActivate: [CheckIfIsLogoutGuard],
-        // children: STORE_ROUTES
     },
     {
         path: 'manage-centro-estudios',
         component: ManageCentroEstudiosComponent,
         canActivate: [CheckIfIsLogoutGuard],
-        // children: STORE_ROUTES
     },
     {
         path: 'manage-users',
         component: ManageUserComponent,
         canActivate: [CheckIfIsLogoutGuard, CheckIfIsAdminGuard],
-        // children: STORE_ROUTES
     },
     {
         path: '',

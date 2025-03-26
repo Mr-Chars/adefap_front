@@ -91,7 +91,6 @@ export class ModalAddRequestTorneoComponent {
         pagination_step: 0,
       };
       const response: any = await firstValueFrom(this.participantService.getParticipant(dataToSend));
-      console.log(response.data.data[0]);
       if (response.data.data) {
         const participant = response.data.data[0];
         this.base64Image = participant.participantPhoto;

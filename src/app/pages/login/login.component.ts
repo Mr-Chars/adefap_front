@@ -22,7 +22,6 @@ export class LoginComponent {
 
   constructor(
     public router: Router,
-    // private authService: AuthMockService,
     private authService: AuthService,
   ) { }
 
@@ -36,7 +35,6 @@ export class LoginComponent {
       if (response.status) {
         localStorage.setItem('token', response.token);
         localStorage.setItem('user_logged', JSON.stringify(response.user[0]));
-        // localStorage.setItem('token_exp', tokenExp);
         this.router.navigate(['/']);
       } else {
         this.modalWarning.open(response.error);

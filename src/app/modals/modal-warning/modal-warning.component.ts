@@ -9,8 +9,8 @@ import { Component } from '@angular/core';
   styleUrl: './modal-warning.component.css'
 })
 export class ModalWarningComponent {
-  timeout: number = 1500; // Tiempo en milisegundos
-  message = ''; // Tiempo en milisegundos
+  timeout: number = 1500;
+  message = '';
   isVisible = false;
   classContent = 'error-content';
   constructor() { }

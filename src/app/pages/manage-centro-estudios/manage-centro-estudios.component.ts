@@ -6,6 +6,8 @@ import { CentroEstudiosService } from '../../services/centro-estudios.service';
 import { firstValueFrom } from 'rxjs';
 import { ModalWarningComponent } from '../../modals/modal-warning/modal-warning.component';
 import { ModalAddCentroEstudioComponent } from '../../modals/centro-estudios/modal-add-centro-estudio/modal-add-centro-estudio.component';
+import { ModalEditCentroEstudioComponent } from '../../modals/centro-estudios/modal-edit-centro-estudio/modal-edit-centro-estudio.component';
+import { ModalDeleteCentroEstudioComponent } from '../../modals/centro-estudios/modal-delete-centro-estudio/modal-delete-centro-estudio.component';
 
 @Component({
   selector: 'app-manage-centro-estudios',
@@ -15,7 +17,9 @@ import { ModalAddCentroEstudioComponent } from '../../modals/centro-estudios/mod
     CommonModule,
     FormsModule,
     ModalWarningComponent,
-    ModalAddCentroEstudioComponent
+    ModalAddCentroEstudioComponent,
+    ModalEditCentroEstudioComponent,
+    ModalDeleteCentroEstudioComponent,
   ],
   templateUrl: './manage-centro-estudios.component.html',
   styleUrl: './manage-centro-estudios.component.css'
@@ -23,6 +27,8 @@ import { ModalAddCentroEstudioComponent } from '../../modals/centro-estudios/mod
 export class ManageCentroEstudiosComponent {
   @ViewChild(ModalWarningComponent) modalWarning!: ModalWarningComponent;
   @ViewChild(ModalAddCentroEstudioComponent) modalAddCentroEstudio!: ModalAddCentroEstudioComponent;
+  @ViewChild(ModalEditCentroEstudioComponent) modalEditCentroEstudio!: ModalEditCentroEstudioComponent;
+  @ViewChild(ModalDeleteCentroEstudioComponent) modalDeleteCentroEstudio!: ModalDeleteCentroEstudioComponent;
 
   centros: any = [];
 
@@ -47,11 +53,26 @@ export class ManageCentroEstudiosComponent {
   }
 
   async openModalEditCentro(id: number) {
-
+    await this.modalEditCentroEstudio.open(id);
+    this.getCentros();
   }
 
   async deleteCentro(id: number) {
+    try {
+      const result = await this.modalDeleteCentroEstudio.open();
+      if (result) {
+        const response: any = await firstValueFrom(this.centroEstudiosService.deleteCentroEstudios(id));
+        if (response.status) {
+          this.getCentros();
+          this.modalWarning.open('Se eliminó el centro de estudios de manera correcta', 'success');
+        } else {
+          this.modalWarning.open('Ocurrió un error...');
+        }
+      }
 
+    } catch (error) {
+      this.modalWarning.open('Ocurrió un error...');
+    }
   }
 
   async getCentros(pagination_step = 1) {

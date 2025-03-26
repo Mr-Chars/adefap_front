@@ -24,4 +24,14 @@ export class CentroEstudiosService {
     const url = `${this.urlApi}add-centro-estudios`;
     return this.http.post(url, body);
   }
+
+  updateCentroEstudios(body: any, id: number) {
+    const url = `${this.urlApi}update-centro-estudios/${id}`;
+    return this.http.put(url, body);
+  }
+
+  deleteCentroEstudios(id: number) {
+    const url = `${this.urlApi}delete-centro-estudios/${id}`;
+    return this.http.delete(url);
+  }
 }

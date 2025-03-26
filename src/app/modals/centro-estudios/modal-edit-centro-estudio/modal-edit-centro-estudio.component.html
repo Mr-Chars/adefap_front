@@ -1,1 +1,35 @@
-<p>modal-edit-centro-estudio works!</p>
+<div class="backdrop" *ngIf="isOpen">
+    <div class="modal">
+        <span class="material-symbols-outlined icon-close" (click)="close(false)">close</span>
+
+        <h3 class="title-form">Editar nuevo club</h3>
+        <form [formGroup]="centroEstudiosForm" action="" class="box-form-request" (ngSubmit)="updateCentroEstudios()">
+            <div class="box-singular-item">
+                <label for="nombre">Nombre</label>
+                <input type="text" formControlName="nombre">
+                <div *ngIf="centroEstudiosForm.controls.nombre.invalid && (centroEstudiosForm.controls.nombre.dirty || centroEstudiosForm.controls.nombre.touched)"
+                    class="display-errors">
+                    <app-display-input-validation-message [type]="centroEstudiosForm.controls.nombre.errors">
+                    </app-display-input-validation-message>
+                </div>
+            </div>
+            <div class="box-singular-item">
+                <label for="ubigeo">Ubigeo distrito</label>
+
+                <div class="box-input-with-icon">
+                    <input type="text" formControlName="ubigeo" readonly>
+                    <span (click)="chooseUbigeo()" class="material-symbols-outlined search-btn">search</span>
+                </div>
+
+                <div *ngIf="centroEstudiosForm.controls.ubigeo.invalid && (centroEstudiosForm.controls.ubigeo.dirty || centroEstudiosForm.controls.ubigeo.touched)"
+                    class="display-errors">
+                    <app-display-input-validation-message [type]="centroEstudiosForm.controls.ubigeo.errors">
+                    </app-display-input-validation-message>
+                </div>
+            </div>
+            <button type="submit" [disabled]="!centroEstudiosForm.valid" class="btn-add">Editar</button>
+        </form>
+    </div>
+</div>
+<app-modal-warning></app-modal-warning>
+<app-modal-ubigeos></app-modal-ubigeos>

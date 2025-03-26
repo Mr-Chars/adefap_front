@@ -89,7 +89,6 @@ export class ManageUserComponent {
         pagination_step,
       };
       const response: any = await firstValueFrom(this.userService.getUser(dataToSend));
-      console.log(response);
 
       if (response.data.data) {
         this.users = response.data.data;
