@@ -1,0 +1,47 @@
+/* modal.component.css */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-width: 300px;
+  text-align: center;
+}
+
+.btn-confirm {
+  background: #4361EE;
+  color: #fff;
+  border: 0;
+  padding: 10px 35px;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background: #DC2626;
+  color: #fff;
+  border: 0;
+  padding: 10px 35px;
+  cursor: pointer;
+}
+
+.box-btn-events {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}

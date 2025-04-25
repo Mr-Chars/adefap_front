@@ -23,6 +23,10 @@
     <span class="material-symbols-outlined">display_settings</span>
     Gestionar categorias
   </div>
+  <div routerLinkActive="active" class="item-menu" [routerLink]="['/manage-region']">
+    <span class="material-symbols-outlined">display_settings</span>
+    Gestionar Región
+  </div>
   <div *ngIf="+roleLogged===1" routerLinkActive="active" class="item-menu" [routerLink]="['/manage-users']">
     <span class="material-symbols-outlined">display_settings</span>
     Gestionar usuarios

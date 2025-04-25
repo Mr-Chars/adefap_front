@@ -2,19 +2,19 @@
   <div class="modal">
     <span class="material-symbols-outlined icon-close" (click)="close(false)">close</span>
 
-    <h3 class="title-form">Actualizar categoría</h3>
-    <form [formGroup]="categoryForm" action="" class="box-form-request" (ngSubmit)="updateCategory()">
+    <h3 class="title-form">Agregar nueva región</h3>
+    <form [formGroup]="regionForm" action="" class="box-form-request" (ngSubmit)="addRegion()">
       <div class="box-singular-item">
         <label for="name">Nombre</label>
         <input type="text" formControlName="name">
         <div
-          *ngIf="categoryForm.controls.name.invalid && (categoryForm.controls.name.dirty || categoryForm.controls.name.touched)"
+          *ngIf="regionForm.controls.name.invalid && (regionForm.controls.name.dirty || regionForm.controls.name.touched)"
           class="display-errors">
-          <app-display-input-validation-message [type]="categoryForm.controls.name.errors">
+          <app-display-input-validation-message [type]="regionForm.controls.name.errors">
           </app-display-input-validation-message>
         </div>
       </div>
-      <button type="submit" [disabled]="!categoryForm.valid" class="btn-add">Actualizar</button>
+      <button type="submit" [disabled]="!regionForm.valid" class="btn-add">Agregar</button>
     </form>
   </div>
 </div>

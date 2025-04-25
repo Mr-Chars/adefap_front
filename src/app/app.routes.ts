@@ -10,6 +10,7 @@ import { ManageClubsComponent } from './pages/manage-clubs/manage-clubs.componen
 import { ManageParticipantComponent } from './pages/manage-participant/manage-participant.component';
 import { ManageCentroEstudiosComponent } from './pages/manage-centro-estudios/manage-centro-estudios.component';
 import { ManageCategoriaComponent } from './pages/manage-categoria/manage-categoria.component';
+import { ManageRegionComponent } from './pages/manage-region/manage-region.component';
 
 export const routes: Routes = [
   {
@@ -40,6 +41,11 @@ export const routes: Routes = [
   {
     path: 'manage-categorias',
     component: ManageCategoriaComponent,
+    canActivate: [CheckIfIsLogoutGuard],
+  },
+  {
+    path: 'manage-region',
+    component: ManageRegionComponent,
     canActivate: [CheckIfIsLogoutGuard],
   },
   {
