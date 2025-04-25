@@ -6,6 +6,7 @@ import { DisplayInputValidationMessageComponent } from '../../../components/disp
 import { ROLS } from '../../../constants/generals';
 import { UserService } from '../../../services/user.service';
 import { ModalWarningComponent } from '../../modal-warning/modal-warning.component';
+import { RegionService } from '../../../services/region.service';
 
 @Component({
   selector: 'app-modal-user',
@@ -24,19 +25,39 @@ export class ModalUserComponent {
   userForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     role: new FormControl('', [Validators.required]),
+    id_region: new FormControl('', []),
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
   });
+  regions: any = [];
 
   constructor(
     private userService: UserService,
+    private regionService: RegionService,
   ) { }
+
+  async getRegion() {
+    try {
+      const dataToSend = {
+        where: '',
+      };
+      const response: any = await firstValueFrom(this.regionService.getRegion(dataToSend));
+      console.log(response.data);
+
+      if (response.data) {
+        this.regions = response.data;
+      }
+    } catch (error) {
+      this.modalWarning.open('Ocurrió un error...');
+    }
+  }
 
   async addUser() {
     try {
       const body = {
         name: this.userForm.value.name,
         role: this.userForm.value.role,
+        id_region: this.userForm.value.id_region,
         username: this.userForm.value.username,
         password: this.userForm.value.password,
       };
@@ -54,6 +75,7 @@ export class ModalUserComponent {
 
   open(): Promise<boolean> {
     this.isOpen = true;
+    this.getRegion();
     return new Promise((resolve) => {
       this.responseSubject = new Subject<boolean>();
       this.responseSubject.subscribe((response) => {

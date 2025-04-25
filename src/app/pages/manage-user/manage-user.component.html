@@ -1,79 +1,80 @@
 <div class="box-main">
-    <app-sidebar style="display: contents;"></app-sidebar>
+  <app-sidebar style="display: contents;"></app-sidebar>
 
-    <div class="box-content">
-        @if (!isLoading) {
-        <h2>Gestion de usuarios</h2>
+  <div class="box-content">
+    @if (!isLoading) {
+    <h2>Gestion de usuarios</h2>
 
-        <div class="box-filters">
-            <div class="box-search-text">
-                <input [(ngModel)]="userWanted" placeholder="Buscar usuario ..." type="text" class="input-search-text">
-                <span (click)="getUsers()" class="material-symbols-outlined search-btn">search</span>
-            </div>
-            <button (click)="openModalAddUser()" class="btn-add-user">Agregar usuario</button>
-        </div>
-
-        <table class="box-table">
-            <thead>
-                <th>
-                    Nombres
-                </th>
-                <th>
-                    Nombre de usuario
-                </th>
-                <th>
-                    Rol
-                </th>
-                <th>
-                    Acciones
-                </th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let request of users">
-                    <td>{{request.name}}</td>
-                    <td>{{request.username}}</td>
-                    <td>{{request.role_name}}</td>
-                    <td>
-                        <span (click)="openModalEditUser(request.id)"
-                            class="material-symbols-outlined icon-edit-user">edit</span>
-                        <span (click)="deleteUser(request.id)"
-                            class="material-symbols-outlined icon-delete-user">delete</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="box-paginator">
-            <ng-container *ngIf="numSequence(+pagination.last_page).length<=4">
-                <div *ngFor="let page of numSequence(+pagination.last_page); index as i" class="item-paginator"
-                    [ngStyle]="{'background-color': (i+1===pagination.current_page) ? '#1B84FF' : '#fff',
-                    'color': (i+1===pagination.current_page) ? '#fff' : '#000'}"
-                    (click)="i+1!==pagination.current_page?getUsers(i+1):null">
-                    {{i+1}}
-                </div>
-            </ng-container>
-            <ng-container *ngIf="numSequence(+pagination.last_page).length>4">
-                <div *ngIf="pagination.current_page>1" class="item-paginator" [ngStyle]="{'background-color': '#fff',
-                'color': '#000'}" (click)="getUsers(pagination.current_page-1)">
-                    {{pagination.current_page-1}}
-                </div>
-                <div class="item-paginator" [ngStyle]="{'background-color': '#fff',
-                    'color': '#000'}">
-                    {{pagination.current_page}}
-                </div>
-                <div *ngIf="pagination.current_page<pagination.last_page" class="item-paginator" [ngStyle]="{'background-color': '#fff',
-                'color': '#000'}" (click)="getUsers(pagination.current_page+1)">
-                    {{pagination.current_page+1}}
-                </div>
-            </ng-container>
-        </div>
-        }
-
-        @if (isLoading){
-        <div class="general-box-loading">
-            <div *ngIf="isLoading" class="loader"></div>
-        </div>
-        }
+    <div class="box-filters">
+      <div class="box-search-text">
+        <input [(ngModel)]="userWanted" placeholder="Buscar usuario ..." type="text" class="input-search-text">
+        <span (click)="getUsers()" class="material-symbols-outlined search-btn">search</span>
+      </div>
+      <button (click)="openModalAddUser()" class="btn-add-user">Agregar usuario</button>
     </div>
+
+    <table class="box-table">
+      <thead>
+        <th>
+          Nombres
+        </th>
+        <th>
+          Nombre de usuario
+        </th>
+        <th>
+          Rol
+        </th>
+        <th>
+          Región
+        </th>
+        <th>
+          Acciones
+        </th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of users">
+          <td>{{request.name}}</td>
+          <td>{{request.username}}</td>
+          <td>{{request.role_name}}</td>
+          <td>{{request.region_name||'Global'}}</td>
+          <td>
+            <span (click)="openModalEditUser(request.id)" class="material-symbols-outlined icon-edit-user">edit</span>
+            <span (click)="deleteUser(request.id)" class="material-symbols-outlined icon-delete-user">delete</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="box-paginator">
+      <ng-container *ngIf="numSequence(+pagination.last_page).length<=4">
+        <div *ngFor="let page of numSequence(+pagination.last_page); index as i" class="item-paginator" [ngStyle]="{'background-color': (i+1===pagination.current_page) ? '#1B84FF' : '#fff',
+                    'color': (i+1===pagination.current_page) ? '#fff' : '#000'}"
+          (click)="i+1!==pagination.current_page?getUsers(i+1):null">
+          {{i+1}}
+        </div>
+      </ng-container>
+      <ng-container *ngIf="numSequence(+pagination.last_page).length>4">
+        <div *ngIf="pagination.current_page>1" class="item-paginator" [ngStyle]="{'background-color': '#fff',
+                'color': '#000'}" (click)="getUsers(pagination.current_page-1)">
+          {{pagination.current_page-1}}
+        </div>
+        <div class="item-paginator" [ngStyle]="{'background-color': '#fff',
+                    'color': '#000'}">
+          {{pagination.current_page}}
+        </div>
+        <div *ngIf="pagination.current_page<pagination.last_page" class="item-paginator" [ngStyle]="{'background-color': '#fff',
+                'color': '#000'}" (click)="getUsers(pagination.current_page+1)">
+          {{pagination.current_page+1}}
+        </div>
+      </ng-container>
+    </div>
+    }
+
+    @if (isLoading){
+    <div class="general-box-loading">
+      <div *ngIf="isLoading" class="loader"></div>
+    </div>
+    }
+  </div>
 </div>
 
 <app-modal-user></app-modal-user>
