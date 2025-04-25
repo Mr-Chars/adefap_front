@@ -19,7 +19,7 @@ import { FormsModule } from '@angular/forms';
     ModalEditClubComponent,
     ModalDeleteClubComponent,
     ModalWarningComponent,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './manage-clubs.component.html',
   styleUrl: './manage-clubs.component.css'

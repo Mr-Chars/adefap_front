@@ -6,6 +6,7 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { firstValueFrom } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { ModalUbigeosComponent } from '../../modals/modal-ubigeos/modal-ubigeos.component';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'app-manage-request-torneo',
@@ -30,12 +31,17 @@ export class ManageRequestTorneoComponent {
     totalQuantity: 0,
     last_page: 0,
   };
+
+  idCategoryWanted = null;
+  categories: any = [];
   constructor(
     private requestTorneoService: RequestTorneoService,
+    private categoryService: CategoryService,
   ) { }
 
   async ngOnInit() {
     this.isLoading = true;
+    await this.getCaterogy();
     await this.getRequestTorneo();
     this.isLoading = false;
   }
@@ -46,14 +52,20 @@ export class ManageRequestTorneoComponent {
 
   async getRequestTorneo(pagination_step = 1) {
     try {
+      let where = [
+        ['participant.nombres', 'like', '%' + this.requestWanted + '%']
+      ];
+      if (this.idCategoryWanted) {
+        where.push(['request_torneo.id_category', '=', this.idCategoryWanted])
+      }
+
       const dataToSend = {
-        where: this.requestWanted ? btoa(JSON.stringify([
-          ['request_torneo.nombres', 'like', '%' + this.requestWanted + '%']
-        ])) : '',
+        where: btoa(JSON.stringify(where)),
         pagination_itemQuantity: 10,
         pagination_step,
       };
       const response: any = await firstValueFrom(this.requestTorneoService.getRequestTorneo(dataToSend));
+
       if (response.data.data) {
         this.requestsTorneo = response.data.data;
         this.pagination = {
@@ -65,6 +77,25 @@ export class ManageRequestTorneoComponent {
     } catch (error) {
 
     }
+  }
+
+  async onSelect(event: any, type: string) {
+    if (type === 'category' && this.idCategoryWanted !== event.target.value) {
+      this.idCategoryWanted = event.target.value;
+      await this.getRequestTorneo();
+    }
+  }
+
+  async getCaterogy() {
+    try {
+      const dataToSend = {
+        where: '',
+      };
+      const response: any = await firstValueFrom(this.categoryService.getCategory(dataToSend));
+      if (response.data) {
+        this.categories = response.data;
+      }
+    } catch (error) { }
   }
 
   async openModalAddRequest() {

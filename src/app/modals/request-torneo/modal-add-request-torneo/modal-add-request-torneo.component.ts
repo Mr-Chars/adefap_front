@@ -10,6 +10,8 @@ import { ModalWarningComponent } from '../../modal-warning/modal-warning.compone
 import { ModalUbigeosComponent } from '../../modal-ubigeos/modal-ubigeos.component';
 import { ParticipantService } from '../../../services/participant.service';
 import { UbigeoService } from '../../../services/ubigeo.service';
+import { CentroEstudiosService } from '../../../services/centro-estudios.service';
+import { CategoryService } from '../../../services/category.service';
 
 @Component({
   selector: 'app-modal-add-request-torneo',
@@ -37,16 +39,14 @@ export class ModalAddRequestTorneoComponent {
   requestTorneoForm = new FormGroup({
     id_club: new FormControl('', [Validators.required]),
     id_participant: new FormControl('', [Validators.required,]),
-    centro_estudios: new FormControl('', [Validators.required,]),
-    ubigeo_centro_estudios: new FormControl('', [Validators.required,]),
+    id_centro_estudios: new FormControl('', []),
+    id_category: new FormControl('', [Validators.required,]),
 
     nombres: new FormControl('', [Validators.required,]),
     apellido_paterno: new FormControl('', [Validators.required,]),
     apellido_materno: new FormControl('', [Validators.required,]),
     fecha_nacimiento: new FormControl('', [Validators.required,]),
     distrito_nacimiento: new FormControl('', [Validators.required,]),
-    distrito_centro_estudios: new FormControl('', [Validators.required,]),
-    year_estudios: new FormControl('', [Validators.required,]),
     dni: new FormControl('', [Validators.required, Validators.pattern(REGEX_TYPES.dni)]),
     domicilio: new FormControl('', [Validators.required,]),
     distrito_domicilio: new FormControl('', [Validators.required,]),
@@ -55,14 +55,17 @@ export class ModalAddRequestTorneoComponent {
     peso: new FormControl('', [Validators.required, Validators.pattern(REGEX_TYPES.peso)]),
   });
   clubs: any = [];
+  centros: any = [];
+  categories: any = [];
 
   constructor(
     private requestTorneoService: RequestTorneoService,
     private clubService: ClubService,
     private participantService: ParticipantService,
     private ubigeoService: UbigeoService,
+    private centroEstudiosService: CentroEstudiosService,
+    private categoryService: CategoryService,
   ) {
-    this.getClubs();
   }
 
   async getUbigeo(idReniecUbigeo: string) {
@@ -123,18 +126,6 @@ export class ModalAddRequestTorneoComponent {
     }
   }
 
-  async chooseUbigeoCentroEstudio() {
-    try {
-      const response: any = await this.modalUbigeosComponent.open();
-      if (response) {
-        this.requestTorneoForm.controls.distrito_centro_estudios.setValue(response.distrito);
-        this.requestTorneoForm.controls.ubigeo_centro_estudios.setValue(response.ubigeo_reniec);
-      }
-    } catch (error) {
-
-    }
-  }
-
   async getClubs() {
     try {
       const dataToSend = {
@@ -154,9 +145,8 @@ export class ModalAddRequestTorneoComponent {
       const body = {
         id_participant: this.requestTorneoForm.value.id_participant,
         id_club: this.requestTorneoForm.value.id_club,
-        centro_estudios: this.requestTorneoForm.value.centro_estudios,
-        ubigeo_centro_estudios: this.requestTorneoForm.value.ubigeo_centro_estudios,
-        year_estudios: this.requestTorneoForm.value.year_estudios,
+        id_centro_estudios: this.requestTorneoForm.value.id_centro_estudios,
+        id_category: this.requestTorneoForm.value.id_category,
       };
       const response: any = await firstValueFrom(this.requestTorneoService.addRequestTorneo(body));
       if (response.status) {
@@ -170,8 +160,43 @@ export class ModalAddRequestTorneoComponent {
     }
   }
 
-  open(): Promise<boolean> {
+  async getCentros() {
+    try {
+      const dataToSend = {
+        where: '',
+      };
+      const response: any = await firstValueFrom(this.centroEstudiosService.getCentroEstudios(dataToSend));
+      if (response.data) {
+        this.centros = response.data;
+        console.log(this.centros);
+
+      }
+    } catch (error) {
+      this.modalWarning.open('Ocurrió un error...');
+    }
+  }
+
+  async getCaterogy() {
+    try {
+      const dataToSend = {
+        where: '',
+      };
+      const response: any = await firstValueFrom(this.categoryService.getCategory(dataToSend));
+      if (response.data) {
+        this.categories = response.data;
+        console.log(this.categories);
+
+      }
+    } catch (error) {
+      this.modalWarning.open('Ocurrió un error...');
+    }
+  }
+
+  async open(): Promise<boolean> {
     this.isOpen = true;
+    await this.getClubs();
+    await this.getCentros();
+    await this.getCaterogy();
     return new Promise((resolve) => {
       this.responseSubject = new Subject<boolean>();
       this.responseSubject.subscribe((response) => {

@@ -1,0 +1,21 @@
+<div class="backdrop" *ngIf="isOpen">
+  <div class="modal">
+    <span class="material-symbols-outlined icon-close" (click)="close(false)">close</span>
+
+    <h3 class="title-form">Agregar nueva categoría</h3>
+    <form [formGroup]="categoryForm" action="" class="box-form-request" (ngSubmit)="addCategory()">
+      <div class="box-singular-item">
+        <label for="name">Nombre</label>
+        <input type="text" formControlName="name">
+        <div
+          *ngIf="categoryForm.controls.name.invalid && (categoryForm.controls.name.dirty || categoryForm.controls.name.touched)"
+          class="display-errors">
+          <app-display-input-validation-message [type]="categoryForm.controls.name.errors">
+          </app-display-input-validation-message>
+        </div>
+      </div>
+      <button type="submit" [disabled]="!categoryForm.valid" class="btn-add">Agregar</button>
+    </form>
+  </div>
+</div>
+<app-modal-warning></app-modal-warning>

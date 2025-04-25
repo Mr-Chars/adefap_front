@@ -1,0 +1,71 @@
+<div class="box-main">
+  <app-sidebar style="display: contents;"></app-sidebar>
+
+  <div class="box-content">
+    @if (!isLoading) {
+    <h2>Gestion de categoria</h2>
+
+    <div class="box-filters">
+      <div class="box-search-text">
+        <input [(ngModel)]="categoryWanted" placeholder="Buscar categoria ..." type="text" class="input-search-text">
+        <span (click)="getCategory()" class="material-symbols-outlined search-btn">search</span>
+      </div>
+      <button (click)="openModalAddCategory()" class="btn-add-club">Agregar categoria</button>
+    </div>
+
+    <table class="box-table">
+      <thead>
+        <th>
+          Nombre de categoria
+        </th>
+        <th>
+          Acciones
+        </th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of categories">
+          <td>{{request.name}}</td>
+          <td>
+            <span (click)="openModalEditCategory(request.id)"
+              class="material-symbols-outlined icon-edit-club">edit</span>
+            <span (click)="deleteCategory(request.id)" class="material-symbols-outlined icon-delete-club">delete</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <div class="box-paginator">
+      <ng-container *ngIf="numSequence(+pagination.last_page).length<=4">
+        <div *ngFor="let page of numSequence(+pagination.last_page); index as i" class="item-paginator" [ngStyle]="{'background-color': (i+1===pagination.current_page) ? '#1B84FF' : '#fff',
+                  'color': (i+1===pagination.current_page) ? '#fff' : '#000'}"
+          (click)="i+1!==pagination.current_page?getClubs(i+1):null">
+          {{i+1}}
+        </div>
+      </ng-container>
+      <ng-container *ngIf="numSequence(+pagination.last_page).length>4">
+        <div *ngIf="pagination.current_page>1" class="item-paginator" [ngStyle]="{'background-color': '#fff',
+              'color': '#000'}" (click)="getClubs(pagination.current_page-1)">
+          {{pagination.current_page-1}}
+        </div>
+        <div class="item-paginator" [ngStyle]="{'background-color': '#fff',
+                  'color': '#000'}">
+          {{pagination.current_page}}
+        </div>
+        <div *ngIf="pagination.current_page<pagination.last_page" class="item-paginator" [ngStyle]="{'background-color': '#fff',
+              'color': '#000'}" (click)="getClubs(pagination.current_page+1)">
+          {{pagination.current_page+1}}
+        </div>
+      </ng-container>
+    </div> -->
+    }
+
+    @if (isLoading){
+    <div class="general-box-loading">
+      <div *ngIf="isLoading" class="loader"></div>
+    </div>
+    }
+  </div>
+</div>
+<app-modal-delete-category></app-modal-delete-category>
+<app-modal-edit-category></app-modal-edit-category>
+<app-modal-add-category></app-modal-add-category>
+<app-modal-warning></app-modal-warning>

@@ -8,7 +8,6 @@ export interface IRequestTorneo {
     lugar_nacimiento: string;
     centro_estudios: string;
     distrito_centro_estudios: string;
-    year_estudios: string;
     dni: string;
     domicilio: string;
     distrito_domicilio: string;
