@@ -22,11 +22,19 @@
         </select>
       </div>
 
+      <div class="box-singular-item">
+        <label>Excel</label>
+        <a href="http://localhost/apiRequestTorneo/public/generate-excel" target="_blank" rel="noopener noreferrer">
+          <span class="material-symbols-outlined" style="color: green;font-size: 35px;">view_list</span>
+        </a>
+      </div>
+
       <button (click)="openModalAddRequest()" class="btn-add-request">Agregar requerimiento</button>
     </div>
     <table class="box-table">
       <thead>
         <th>Nombre completo</th>
+        <th>Región</th>
         <th>Categoría</th>
         <th>Centro de estudios</th>
         <th>Dni</th>
@@ -37,8 +45,9 @@
         <tr *ngFor="let request of requestsTorneo">
           <td>{{request.participant_nombres}} {{request.participant_apellido_paterno}}
             {{request.participant_apellido_materno}}</td>
+          <td>{{request.region_name||'Global'}}</td>
           <td>{{request.category_name}}</td>
-          <td>{{request.centro_estudios_nombre}}</td>
+          <td>{{request.centro_estudios_nombre||'No asignado'}}</td>
           <td>{{request.participant_dni}}</td>
           <td>{{request.participant_n_celular}}</td>
           <td>

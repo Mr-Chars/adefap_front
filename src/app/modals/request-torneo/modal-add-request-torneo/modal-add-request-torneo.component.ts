@@ -142,12 +142,15 @@ export class ModalAddRequestTorneoComponent {
 
   async addRequest() {
     try {
+      const dataDecripted = JSON.parse(localStorage.getItem('user_logged')!);
       const body = {
         id_participant: this.requestTorneoForm.value.id_participant,
         id_club: this.requestTorneoForm.value.id_club,
         id_centro_estudios: this.requestTorneoForm.value.id_centro_estudios,
         id_category: this.requestTorneoForm.value.id_category,
+        id_region: dataDecripted.id_region,
       };
+
       const response: any = await firstValueFrom(this.requestTorneoService.addRequestTorneo(body));
       if (response.status) {
         this.modalWarning.open('Se agregó el requerimiento de manera correcta', 'success');

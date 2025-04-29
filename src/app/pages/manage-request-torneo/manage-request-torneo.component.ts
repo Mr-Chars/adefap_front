@@ -34,6 +34,8 @@ export class ManageRequestTorneoComponent {
 
   idCategoryWanted = null;
   categories: any = [];
+
+  id_region = null;
   constructor(
     private requestTorneoService: RequestTorneoService,
     private categoryService: CategoryService,
@@ -41,6 +43,8 @@ export class ManageRequestTorneoComponent {
 
   async ngOnInit() {
     this.isLoading = true;
+    const dataDecripted = JSON.parse(localStorage.getItem('user_logged')!);
+    this.id_region = dataDecripted.id_region;
     await this.getCaterogy();
     await this.getRequestTorneo();
     this.isLoading = false;
@@ -57,6 +61,11 @@ export class ManageRequestTorneoComponent {
       ];
       if (this.idCategoryWanted) {
         where.push(['request_torneo.id_category', '=', this.idCategoryWanted])
+      }
+      console.log(this.id_region);
+
+      if (this.id_region) {
+        where.push(['request_torneo.id_region', '=', this.id_region])
       }
 
       const dataToSend = {

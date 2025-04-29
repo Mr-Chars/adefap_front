@@ -58,6 +58,13 @@
   font-weight: 600;
 }
 
+.region {
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
 @media (max-width: 768px) {
   .box-sidebar {
     display: none;

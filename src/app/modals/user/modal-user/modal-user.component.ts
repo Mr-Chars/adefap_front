@@ -42,7 +42,6 @@ export class ModalUserComponent {
         where: '',
       };
       const response: any = await firstValueFrom(this.regionService.getRegion(dataToSend));
-      console.log(response.data);
 
       if (response.data) {
         this.regions = response.data;

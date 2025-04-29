@@ -12,12 +12,16 @@ import { Router, RouterModule } from '@angular/router';
 export class SidebarComponent {
   nameUserLogged = '';
   roleLogged = '';
+  regionLogged = '';
   constructor(
     public router: Router,
   ) {
     const dataDecripted = JSON.parse(localStorage.getItem('user_logged')!);
+    console.log(dataDecripted);
+
     this.nameUserLogged = dataDecripted.name;
     this.roleLogged = dataDecripted.role;
+    this.regionLogged = dataDecripted.region_name || 'Global';
   }
 
   closeSession() {

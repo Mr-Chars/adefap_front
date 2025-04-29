@@ -115,7 +115,6 @@
       <div class="box-formitem-two">
         <div class="box-singular-item">
           <label for="id_centro_estudios">Centro de estudios</label>
-          <!-- <input type="text" formControlName="centro_estudios"> -->
           <select formControlName="id_centro_estudios">
             <option value="">Seleccione un centro de estudios</option>
             <option *ngFor="let centro of centros" [value]="centro.id">
