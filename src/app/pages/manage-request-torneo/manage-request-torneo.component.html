@@ -11,7 +11,7 @@
         <span (click)="getRequestTorneo()" class="material-symbols-outlined search-btn">search</span>
       </div>
 
-      <div class="box-singular-item">
+      <div class="box-singular-item box-category">
         <label>Categoría</label>
 
         <select (change)="onSelect($event,'category')">
@@ -22,7 +22,7 @@
         </select>
       </div>
 
-      <div class="box-singular-item">
+      <div class="box-singular-item box-excel">
         <label>Excel</label>
         <a href="http://localhost/apiRequestTorneo/public/generate-excel" target="_blank" rel="noopener noreferrer">
           <span class="material-symbols-outlined" style="color: green;font-size: 35px;">view_list</span>
@@ -31,33 +31,37 @@
 
       <button (click)="openModalAddRequest()" class="btn-add-request">Agregar requerimiento</button>
     </div>
-    <table class="box-table">
-      <thead>
-        <th>Nombre completo</th>
-        <th>Región</th>
-        <th>Categoría</th>
-        <th>Centro de estudios</th>
-        <th>Dni</th>
-        <th>Celular</th>
-        <th>Acciones</th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let request of requestsTorneo">
-          <td>{{request.participant_nombres}} {{request.participant_apellido_paterno}}
-            {{request.participant_apellido_materno}}</td>
-          <td>{{request.region_name||'Global'}}</td>
-          <td>{{request.category_name}}</td>
-          <td>{{request.centro_estudios_nombre||'No asignado'}}</td>
-          <td>{{request.participant_dni}}</td>
-          <td>{{request.participant_n_celular}}</td>
-          <td>
-            <a [href]="generatePdf(request.id)" target="_blank">
-              <span class="material-symbols-outlined">picture_as_pdf</span>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre completo</th>
+            <th class="field-region">Región</th>
+            <th>Categoría</th>
+            <th class="field-centro-estudios">Centro de estudios</th>
+            <th class="field-dni">Dni</th>
+            <th class="field-celular">Celular</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let request of requestsTorneo">
+            <td>{{request.participant_nombres}} {{request.participant_apellido_paterno}}
+              {{request.participant_apellido_materno}}</td>
+            <td class="field-region">{{request.region_name||'Global'}}</td>
+            <td>{{request.category_name}}</td>
+            <td class="field-centro-estudios">{{request.centro_estudios_nombre||'No asignado'}}</td>
+            <td class="field-dni">{{request.participant_dni}}</td>
+            <td class="field-celular">{{request.participant_n_celular}}</td>
+            <td>
+              <a [href]="generatePdf(request.id)" target="_blank">
+                <span class="material-symbols-outlined">picture_as_pdf</span>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div class="box-paginator">
       <ng-container *ngIf="numSequence(+pagination.last_page).length<=4">
         <div *ngFor="let page of numSequence(+pagination.last_page); index as i" class="item-paginator" [ngStyle]="{'background-color': (i+1===pagination.current_page) ? '#1B84FF' : '#fff',

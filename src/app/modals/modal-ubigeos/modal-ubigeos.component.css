@@ -1,103 +1,104 @@
 /* modal.component.css */
 .backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9;
 }
 
 .modal {
-    position: relative;
-    width: 1200px;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    min-width: 300px;
-    text-align: center;
+  position: relative;
+  width: 1200px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-width: 300px;
+  text-align: center;
 }
 
 .icon-close {
-    cursor: pointer;
-    position: absolute;
-    right: 25px;
-    color: #DC2626;
-    font-size: 40px;
+  cursor: pointer;
+  position: absolute;
+  right: 25px;
+  color: #DC2626;
+  font-size: 40px;
 }
 
 .box-content {
-    flex-grow: 1;
-    padding: 15px 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    background: #F8F8F9;
+  flex-grow: 1;
+  padding: 15px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: #F8F8F9;
 }
 
 .box-filters {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .box-search-text {
-    flex-basis: 100%;
-    position: relative;
+  flex-basis: 100%;
+  position: relative;
 }
 
 .input-search-text {
-    width: 100%;
-    height: 35px;
+  width: 100%;
+  height: 35px;
 }
 
 .search-btn {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
 }
 
 .box-table {
-    text-align: left;
-    background: #fff;
-    padding: 0;
+  text-align: left;
+  background: #fff;
+  padding: 0;
 }
 
 tbody {
-    display: block;
-    height: 250px;
-    overflow: auto;
+  display: block;
+  height: 250px;
+  overflow: auto;
 }
 
 thead,
 tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-    /* even columns width , fix width of table too*/
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  /* even columns width , fix width of table too*/
 }
 
 thead {
-    width: calc(100% - 1em)
-        /* scrollbar is average 1em/16px width, remove it from thead width */
+  width: calc(100% - 1em)
+    /* scrollbar is average 1em/16px width, remove it from thead width */
 }
 
 .box-paginator {
-    width: fit-content;
-    float: right;
-    right: 20px;
-    position: relative;
-    top: 5px;
+  width: fit-content;
+  float: right;
+  right: 20px;
+  position: relative;
+  top: 5px;
 }
 
 .item-paginator {
-    display: inline-block;
-    padding: 10px 15px;
-    margin: 0 2px;
-    border-radius: 50%;
-    cursor: pointer;
+  display: inline-block;
+  padding: 10px 15px;
+  margin: 0 2px;
+  border-radius: 50%;
+  cursor: pointer;
 }
