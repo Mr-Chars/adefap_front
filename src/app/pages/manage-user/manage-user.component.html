@@ -13,37 +13,29 @@
       <button (click)="openModalAddUser()" class="btn-add-user">Agregar usuario</button>
     </div>
 
-    <table class="box-table">
-      <thead>
-        <th>
-          Nombres
-        </th>
-        <th>
-          Nombre de usuario
-        </th>
-        <th>
-          Rol
-        </th>
-        <th>
-          Región
-        </th>
-        <th>
-          Acciones
-        </th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let request of users">
-          <td>{{request.name}}</td>
-          <td>{{request.username}}</td>
-          <td>{{request.role_name}}</td>
-          <td>{{request.region_name||'Global'}}</td>
-          <td>
-            <span (click)="openModalEditUser(request.id)" class="material-symbols-outlined icon-edit-user">edit</span>
-            <span (click)="deleteUser(request.id)" class="material-symbols-outlined icon-delete-user">delete</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table>
+        <thead>
+          <th>Nombres</th>
+          <th class="field-username">Nombre de usuario</th>
+          <th>Rol</th>
+          <th class="field-region">Región</th>
+          <th>Acciones</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let request of users">
+            <td>{{request.name}}</td>
+            <td class="field-username">{{request.username}}</td>
+            <td>{{request.role_name}}</td>
+            <td class="field-region">{{request.region_name||'Global'}}</td>
+            <td style="text-align: center;">
+              <span (click)="openModalEditUser(request.id)" class="material-symbols-outlined icon-edit-user">edit</span>
+              <span (click)="deleteUser(request.id)" class="material-symbols-outlined icon-delete-user">delete</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div class="box-paginator">
       <ng-container *ngIf="numSequence(+pagination.last_page).length<=4">
         <div *ngFor="let page of numSequence(+pagination.last_page); index as i" class="item-paginator" [ngStyle]="{'background-color': (i+1===pagination.current_page) ? '#1B84FF' : '#fff',

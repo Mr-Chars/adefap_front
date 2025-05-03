@@ -76,3 +76,9 @@
     border-radius: 50%;
     cursor: pointer;
 }
+
+@media (max-width: 770px) {
+  .box-formitem-two {
+    flex-direction: column;
+  }
+}

@@ -13,25 +13,32 @@
       <button (click)="openModalAddRegion()" class="btn-add-club">Agregar región</button>
     </div>
 
-    <table class="box-table">
-      <thead>
-        <th>
-          Nombre de región
-        </th>
-        <th>
-          Acciones
-        </th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let request of regions">
-          <td>{{request.name}}</td>
-          <td>
-            <span (click)="openModalEditRegion(request.id)" class="material-symbols-outlined icon-edit-club">edit</span>
-            <span (click)="deleteRegion(request.id)" class="material-symbols-outlined icon-delete-club">delete</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table>
+        <colgroup>
+          <col>
+          <col>
+        </colgroup>
+        <thead>
+          <th>
+            Nombre de región
+          </th>
+          <th>
+            Acciones
+          </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let request of regions">
+            <td>{{request.name}}</td>
+            <td style="text-align: center;">
+              <span (click)="openModalEditRegion(request.id)"
+                class="material-symbols-outlined icon-edit-club">edit</span>
+              <span (click)="deleteRegion(request.id)" class="material-symbols-outlined icon-delete-club">delete</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <!-- <div class="box-paginator">
       <ng-container *ngIf="numSequence(+pagination.last_page).length<=4">
         <div *ngFor="let page of numSequence(+pagination.last_page); index as i" class="item-paginator" [ngStyle]="{'background-color': (i+1===pagination.current_page) ? '#1B84FF' : '#fff',
