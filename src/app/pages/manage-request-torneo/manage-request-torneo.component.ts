@@ -7,6 +7,7 @@ import { firstValueFrom } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { ModalUbigeosComponent } from '../../modals/modal-ubigeos/modal-ubigeos.component';
 import { CategoryService } from '../../services/category.service';
+import { StfPaginationComponent, StfTextComponent } from 'stf-components';
 
 @Component({
   selector: 'app-manage-request-torneo',
@@ -16,6 +17,8 @@ import { CategoryService } from '../../services/category.service';
     ModalAddRequestTorneoComponent,
     SidebarComponent,
     FormsModule,
+    StfPaginationComponent,
+    StfTextComponent
   ],
   templateUrl: './manage-request-torneo.component.html',
   styleUrl: './manage-request-torneo.component.css'
@@ -48,6 +51,10 @@ export class ManageRequestTorneoComponent {
     await this.getCaterogy();
     await this.getRequestTorneo();
     this.isLoading = false;
+  }
+
+  pageChangedPagination(event: any) {
+    this.getRequestTorneo(event.currentPage)
   }
 
   generatePdf(idRequest: any) {
@@ -110,9 +117,5 @@ export class ManageRequestTorneoComponent {
   async openModalAddRequest() {
     const result = await this.modal.open();
     this.getRequestTorneo();
-  }
-
-  numSequence(n: number): Array<number> {
-    return Array(n);
   }
 }

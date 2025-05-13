@@ -8,6 +8,7 @@ import { UserService } from '../../services/user.service';
 import { ModalDeleteUserComponent } from '../../modals/user/modal-delete-user/modal-delete-user.component';
 import { ModalEditUserComponent } from '../../modals/user/modal-edit-user/modal-edit-user.component';
 import { FormsModule } from '@angular/forms';
+import { StfPaginationComponent, StfTextComponent } from 'stf-components';
 
 @Component({
   selector: 'app-manage-user',
@@ -19,7 +20,9 @@ import { FormsModule } from '@angular/forms';
     ModalWarningComponent,
     ModalDeleteUserComponent,
     ModalEditUserComponent,
-    FormsModule
+    FormsModule,
+    StfPaginationComponent,
+    StfTextComponent
   ],
   templateUrl: './manage-user.component.html',
   styleUrl: './manage-user.component.css'
@@ -45,6 +48,10 @@ export class ManageUserComponent {
 
   ngOnInit() {
     this.getUsers();
+  }
+
+  pageChangedPagination(event: any) {
+    this.getUsers(event.currentPage)
   }
 
   async openModalEditUser(idUser: number) {
@@ -108,9 +115,5 @@ export class ManageUserComponent {
   async openModalAddUser() {
     await this.modal.open();
     this.getUsers();
-  }
-
-  numSequence(n: number): Array<number> {
-    return Array(n);
   }
 }

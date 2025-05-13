@@ -38,9 +38,11 @@ export class ModalAddCentroEstudioComponent {
 
   async addCentroEstudios() {
     try {
+      const dataDecripted = JSON.parse(localStorage.getItem('user_logged')!);
       const body = {
         nombre: this.centroEstudiosForm.value.nombre,
         ubigeo: this.centroEstudiosForm.value.ubigeo_id,
+        id_creator: dataDecripted.id,
       };
       const response: any = await firstValueFrom(this.centroEstudiosService.addCentroEstudios(body));
       if (response.status) {

@@ -99,7 +99,11 @@ thead th {
   position: sticky;
   top: 0;
   background: #f5f5f5;
-  z-index: 2;
+}
+
+
+.box-excel a {
+  width: fit-content;
 }
 
 

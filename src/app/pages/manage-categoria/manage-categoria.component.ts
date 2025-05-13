@@ -8,6 +8,7 @@ import { ModalWarningComponent } from '../../modals/modal-warning/modal-warning.
 import { ModalAddCategoryComponent } from '../../modals/category/modal-add-category/modal-add-category.component';
 import { ModalEditCategoryComponent } from '../../modals/category/modal-edit-category/modal-edit-category.component';
 import { ModalDeleteCategoryComponent } from '../../modals/category/modal-delete-category/modal-delete-category.component';
+import { StfPaginationComponent, StfTextComponent } from 'stf-components';
 
 @Component({
   selector: 'app-manage-categoria',
@@ -20,6 +21,8 @@ import { ModalDeleteCategoryComponent } from '../../modals/category/modal-delete
     ModalAddCategoryComponent,
     ModalEditCategoryComponent,
     ModalDeleteCategoryComponent,
+    StfPaginationComponent,
+    StfTextComponent
   ],
   templateUrl: './manage-categoria.component.html',
   styleUrl: './manage-categoria.component.css'
@@ -44,6 +47,10 @@ export class ManageCategoriaComponent {
 
   ngOnInit() {
     this.getCategory();
+  }
+
+  pageChangedPagination(event: any) {
+    this.getCategory(event.currentPage)
   }
 
   async openModalAddCategory() {
@@ -82,10 +89,12 @@ export class ManageCategoriaComponent {
   async getCategory(pagination_step = 1) {
     this.isLoading = true;
     try {
+      const dataDecripted = JSON.parse(localStorage.getItem('user_logged')!);
       const dataToSend = {
-        where: this.categoryWanted ? btoa(JSON.stringify([
-          ['category.name', 'like', '%' + this.categoryWanted + '%']
-        ])) : '',
+        where: btoa(JSON.stringify([
+          ['category.name', 'like', '%' + this.categoryWanted + '%'],
+          ['category.id_creator', '=', dataDecripted.id]
+        ])),
         pagination_itemQuantity: 10,
         pagination_step,
       };

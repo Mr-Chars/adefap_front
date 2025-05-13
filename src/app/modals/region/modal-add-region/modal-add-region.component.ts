@@ -33,8 +33,10 @@ export class ModalAddRegionComponent {
 
   async addRegion() {
     try {
+      const dataDecripted = JSON.parse(localStorage.getItem('user_logged')!);
       const body = {
         name: this.regionForm.value.name,
+        id_creator: dataDecripted.id,
       };
       const response: any = await firstValueFrom(this.regionService.addRegion(body));
       if (response.status) {

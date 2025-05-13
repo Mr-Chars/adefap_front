@@ -3,7 +3,8 @@
 
   <div class="box-content">
     @if (!isLoading) {
-    <h2>Gestion de solicitudes</h2>
+    <stf-text [stf-label]="'Gestión de solicitudes'" [stf-weight]="'700'" [stf-size]="'subtitle'"
+      [stf-color]="'black'"></stf-text>
 
     <div class="box-filters">
       <div class="box-search-text">
@@ -62,28 +63,9 @@
         </tbody>
       </table>
     </div>
-    <div class="box-paginator">
-      <ng-container *ngIf="numSequence(+pagination.last_page).length<=4">
-        <div *ngFor="let page of numSequence(+pagination.last_page); index as i" class="item-paginator" [ngStyle]="{'background-color': (i+1===pagination.current_page) ? '#1B84FF' : '#fff',
-                            'color': (i+1===pagination.current_page) ? '#fff' : '#000'}"
-          (click)="i+1!==pagination.current_page?getRequestTorneo(i+1):null">
-          {{i+1}}
-        </div>
-      </ng-container>
-      <ng-container *ngIf="numSequence(+pagination.last_page).length>4">
-        <div *ngIf="pagination.current_page>1" class="item-paginator" [ngStyle]="{'background-color': '#fff',
-                        'color': '#000'}" (click)="getRequestTorneo(pagination.current_page-1)">
-          {{pagination.current_page-1}}
-        </div>
-        <div class="item-paginator" [ngStyle]="{'background-color': '#fff',
-                            'color': '#000'}">
-          {{pagination.current_page}}
-        </div>
-        <div *ngIf="pagination.current_page<pagination.last_page" class="item-paginator" [ngStyle]="{'background-color': '#fff',
-                        'color': '#000'}" (click)="getRequestTorneo(pagination.current_page+1)">
-          {{pagination.current_page+1}}
-        </div>
-      </ng-container>
+    <div *ngIf="pagination.totalQuantity" class="box-paginator">
+      <stf-pagination [totalEntries]="pagination.totalQuantity"
+        (pageChange)="pageChangedPagination($event)"></stf-pagination>
     </div>
     }
 

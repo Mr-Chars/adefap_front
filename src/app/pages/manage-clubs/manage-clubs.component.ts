@@ -8,6 +8,7 @@ import { firstValueFrom } from 'rxjs';
 import { ModalEditClubComponent } from '../../modals/clubs/modal-edit-club/modal-edit-club.component';
 import { ModalDeleteClubComponent } from '../../modals/clubs/modal-delete-club/modal-delete-club.component';
 import { FormsModule } from '@angular/forms';
+import { StfPaginationComponent, StfTextComponent } from 'stf-components';
 
 @Component({
   selector: 'app-manage-clubs',
@@ -20,6 +21,8 @@ import { FormsModule } from '@angular/forms';
     ModalDeleteClubComponent,
     ModalWarningComponent,
     FormsModule,
+    StfPaginationComponent,
+    StfTextComponent
   ],
   templateUrl: './manage-clubs.component.html',
   styleUrl: './manage-clubs.component.css'
@@ -45,6 +48,10 @@ export class ManageClubsComponent {
 
   ngOnInit() {
     this.getClubs();
+  }
+
+  pageChangedPagination(event: any) {
+    this.getClubs(event.currentPage)
   }
 
   async getClubs(pagination_step = 1) {
@@ -104,9 +111,5 @@ export class ManageClubsComponent {
     } catch (error) {
       this.modalWarning.open('Ocurrió un error...');
     }
-  }
-
-  numSequence(n: number): Array<number> {
-    return Array(n);
   }
 }

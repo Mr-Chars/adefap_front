@@ -8,6 +8,7 @@ import { ModalWarningComponent } from '../../modals/modal-warning/modal-warning.
 import { ModalAddCentroEstudioComponent } from '../../modals/centro-estudios/modal-add-centro-estudio/modal-add-centro-estudio.component';
 import { ModalEditCentroEstudioComponent } from '../../modals/centro-estudios/modal-edit-centro-estudio/modal-edit-centro-estudio.component';
 import { ModalDeleteCentroEstudioComponent } from '../../modals/centro-estudios/modal-delete-centro-estudio/modal-delete-centro-estudio.component';
+import { StfPaginationComponent, StfTextComponent } from 'stf-components';
 
 @Component({
   selector: 'app-manage-centro-estudios',
@@ -20,6 +21,8 @@ import { ModalDeleteCentroEstudioComponent } from '../../modals/centro-estudios/
     ModalAddCentroEstudioComponent,
     ModalEditCentroEstudioComponent,
     ModalDeleteCentroEstudioComponent,
+    StfPaginationComponent,
+    StfTextComponent
   ],
   templateUrl: './manage-centro-estudios.component.html',
   styleUrl: './manage-centro-estudios.component.css'
@@ -45,6 +48,10 @@ export class ManageCentroEstudiosComponent {
 
   ngOnInit() {
     this.getCentros();
+  }
+
+  pageChangedPagination(event: any) {
+    this.getCentros(event.currentPage)
   }
 
   async openModalAddCentro() {
@@ -78,10 +85,12 @@ export class ManageCentroEstudiosComponent {
   async getCentros(pagination_step = 1) {
     this.isLoading = true;
     try {
+      const dataDecripted = JSON.parse(localStorage.getItem('user_logged')!);
       const dataToSend = {
-        where: this.centroWanted ? btoa(JSON.stringify([
-          ['centro_estudios.nombre', 'like', '%' + this.centroWanted + '%']
-        ])) : '',
+        where: btoa(JSON.stringify([
+          ['centro_estudios.nombre', 'like', '%' + this.centroWanted + '%'],
+          ['centro_estudios.id_creator', '=', dataDecripted.id]
+        ])),
         pagination_itemQuantity: 10,
         pagination_step,
       };
@@ -99,9 +108,5 @@ export class ManageCentroEstudiosComponent {
     } finally {
       this.isLoading = false;
     }
-  }
-
-  numSequence(n: number): Array<number> {
-    return Array(n);
   }
 }

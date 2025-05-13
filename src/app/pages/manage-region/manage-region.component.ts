@@ -8,6 +8,7 @@ import { firstValueFrom } from 'rxjs';
 import { ModalAddRegionComponent } from '../../modals/region/modal-add-region/modal-add-region.component';
 import { ModalEditRegionComponent } from '../../modals/region/modal-edit-region/modal-edit-region.component';
 import { ModalDeleteRegionComponent } from '../../modals/region/modal-delete-region/modal-delete-region.component';
+import { StfPaginationComponent, StfTextComponent } from 'stf-components';
 
 @Component({
   selector: 'app-manage-region',
@@ -19,7 +20,9 @@ import { ModalDeleteRegionComponent } from '../../modals/region/modal-delete-reg
     ModalWarningComponent,
     ModalAddRegionComponent,
     ModalEditRegionComponent,
-    ModalDeleteRegionComponent
+    ModalDeleteRegionComponent,
+    StfPaginationComponent,
+    StfTextComponent
   ],
   templateUrl: './manage-region.component.html',
   styleUrl: './manage-region.component.css'
@@ -43,6 +46,10 @@ export class ManageRegionComponent {
 
   ngOnInit() {
     this.getRegion();
+  }
+
+  pageChangedPagination(event: any) {
+    this.getRegion(event.currentPage)
   }
 
   async openModalAddRegion() {
@@ -79,10 +86,12 @@ export class ManageRegionComponent {
   async getRegion(pagination_step = 1) {
     this.isLoading = true;
     try {
+      const dataDecripted = JSON.parse(localStorage.getItem('user_logged')!);
       const dataToSend = {
-        where: this.regionWanted ? btoa(JSON.stringify([
-          ['region.name', 'like', '%' + this.regionWanted + '%']
-        ])) : '',
+        where: btoa(JSON.stringify([
+          ['region.name', 'like', '%' + this.regionWanted + '%'],
+          ['region.id_creator', '=', dataDecripted.id]
+        ])),
         pagination_itemQuantity: 10,
         pagination_step,
       };

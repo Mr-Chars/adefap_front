@@ -5,7 +5,6 @@ import { firstValueFrom, Subject } from 'rxjs';
 import { RequestTorneoService } from '../../../services/request-torneo.service';
 import { DisplayInputValidationMessageComponent } from '../../../components/display-input-validation-message/display-input-validation-message.component';
 import { lastYears, REGEX_TYPES } from '../../../constants/generals';
-import { ClubService } from '../../../services/club.service';
 import { ModalWarningComponent } from '../../modal-warning/modal-warning.component';
 import { ModalUbigeosComponent } from '../../modal-ubigeos/modal-ubigeos.component';
 import { ParticipantService } from '../../../services/participant.service';
@@ -37,7 +36,6 @@ export class ModalAddRequestTorneoComponent {
   lastYears = lastYears;
 
   requestTorneoForm = new FormGroup({
-    id_club: new FormControl('', [Validators.required]),
     id_participant: new FormControl('', [Validators.required,]),
     id_centro_estudios: new FormControl('', []),
     id_category: new FormControl('', [Validators.required,]),
@@ -54,13 +52,12 @@ export class ModalAddRequestTorneoComponent {
     talla: new FormControl('', [Validators.required,]),
     peso: new FormControl('', [Validators.required, Validators.pattern(REGEX_TYPES.peso)]),
   });
-  clubs: any = [];
   centros: any = [];
   categories: any = [];
 
+  userCreator = JSON.parse(localStorage.getItem('user_logged')!);
   constructor(
     private requestTorneoService: RequestTorneoService,
-    private clubService: ClubService,
     private participantService: ParticipantService,
     private ubigeoService: UbigeoService,
     private centroEstudiosService: CentroEstudiosService,
@@ -86,9 +83,11 @@ export class ModalAddRequestTorneoComponent {
 
   async searchParticipanteById() {
     try {
+      const dataDecripted = JSON.parse(localStorage.getItem('user_logged')!);
       const dataToSend = {
         where: btoa(JSON.stringify([
-          ['participant.dni', '=', this.requestTorneoForm.value.dni,]
+          ['participant.dni', '=', this.requestTorneoForm.value.dni,],
+          ['participant.id_creator', '=', dataDecripted.id]
         ])),
         pagination_itemQuantity: 10,
         pagination_step: 0,
@@ -126,29 +125,15 @@ export class ModalAddRequestTorneoComponent {
     }
   }
 
-  async getClubs() {
-    try {
-      const dataToSend = {
-        where: '',
-      };
-      const response: any = await firstValueFrom(this.clubService.getClub(dataToSend));
-      if (response.data) {
-        this.clubs = response.data;
-      }
-    } catch (error) {
-      this.modalWarning.open('Ocurrió un error...');
-    }
-  }
-
   async addRequest() {
     try {
       const dataDecripted = JSON.parse(localStorage.getItem('user_logged')!);
       const body = {
         id_participant: this.requestTorneoForm.value.id_participant,
-        id_club: this.requestTorneoForm.value.id_club,
         id_centro_estudios: this.requestTorneoForm.value.id_centro_estudios,
         id_category: this.requestTorneoForm.value.id_category,
         id_region: dataDecripted.id_region,
+        id_creator: dataDecripted.id,
       };
 
       const response: any = await firstValueFrom(this.requestTorneoService.addRequestTorneo(body));
@@ -165,8 +150,11 @@ export class ModalAddRequestTorneoComponent {
 
   async getCentros() {
     try {
+      const dataDecripted = JSON.parse(localStorage.getItem('user_logged')!);
       const dataToSend = {
-        where: '',
+        where: btoa(JSON.stringify([
+          ['centro_estudios.id_creator', '=', dataDecripted.id]
+        ])),
       };
       const response: any = await firstValueFrom(this.centroEstudiosService.getCentroEstudios(dataToSend));
       if (response.data) {
@@ -181,8 +169,11 @@ export class ModalAddRequestTorneoComponent {
 
   async getCaterogy() {
     try {
+      const dataDecripted = JSON.parse(localStorage.getItem('user_logged')!);
       const dataToSend = {
-        where: '',
+        where: btoa(JSON.stringify([
+          ['category.id_creator', '=', dataDecripted.id]
+        ])),
       };
       const response: any = await firstValueFrom(this.categoryService.getCategory(dataToSend));
       if (response.data) {
@@ -197,7 +188,6 @@ export class ModalAddRequestTorneoComponent {
 
   async open(): Promise<boolean> {
     this.isOpen = true;
-    await this.getClubs();
     await this.getCentros();
     await this.getCaterogy();
     return new Promise((resolve) => {

@@ -8,6 +8,7 @@ import { firstValueFrom } from 'rxjs';
 import { ModalWarningComponent } from '../../modals/modal-warning/modal-warning.component';
 import { ModalEditParticipantComponent } from '../../modals/participant/modal-edit-participant/modal-edit-participant.component';
 import { ModalDeleteParticipantComponent } from '../../modals/participant/modal-delete-participant/modal-delete-participant.component';
+import { StfPaginationComponent, StfTextComponent } from 'stf-components';
 
 @Component({
   selector: 'app-manage-participant',
@@ -19,7 +20,9 @@ import { ModalDeleteParticipantComponent } from '../../modals/participant/modal-
     ModalAddParticipantComponent,
     ModalWarningComponent,
     ModalEditParticipantComponent,
-    ModalDeleteParticipantComponent
+    ModalDeleteParticipantComponent,
+    StfPaginationComponent,
+    StfTextComponent
   ],
   templateUrl: './manage-participant.component.html',
   styleUrl: './manage-participant.component.css'
@@ -49,13 +52,19 @@ export class ManageParticipantComponent {
     this.getParticipants();
   }
 
+  pageChangedPagination(event: any) {
+    this.getParticipants(event.currentPage)
+  }
+
   async getParticipants(pagination_step = 1) {
     this.isLoading = true;
     try {
+      const dataDecripted = JSON.parse(localStorage.getItem('user_logged')!);
       const dataToSend = {
-        where: this.participantWanted ? btoa(JSON.stringify([
-          ['participant.nombres', 'like', '%' + this.participantWanted + '%']
-        ])) : '',
+        where: btoa(JSON.stringify([
+          ['participant.nombres', 'like', '%' + this.participantWanted + '%'],
+          ['participant.id_creator', '=', dataDecripted.id]
+        ])),
         pagination_itemQuantity: 10,
         pagination_step,
       };
@@ -101,9 +110,5 @@ export class ManageParticipantComponent {
     } catch (error) {
       this.modalWarning.open('Ocurrió un error...');
     }
-  }
-
-  numSequence(n: number): Array<number> {
-    return Array(n);
   }
 }

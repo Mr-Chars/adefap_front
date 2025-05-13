@@ -28,11 +28,11 @@ export const routes: Routes = [
     component: ManageParticipantComponent,
     canActivate: [CheckIfIsLogoutGuard],
   },
-  {
-    path: 'manage-clubs',
-    component: ManageClubsComponent,
-    canActivate: [CheckIfIsLogoutGuard],
-  },
+  // {
+  //   path: 'manage-clubs',
+  //   component: ManageClubsComponent,
+  //   canActivate: [CheckIfIsLogoutGuard],
+  // },
   {
     path: 'manage-centro-estudios',
     component: ManageCentroEstudiosComponent,

@@ -82,18 +82,7 @@
       <div class="box-formitem-two">
         <div class="box-singular-item">
           <label for="id_club">Nombre del club</label>
-          <select formControlName="id_club">
-            <option value="">Seleccione un club</option>
-            <option *ngFor="let club of clubs" [value]="club.id">
-              {{club.name}}
-            </option>
-          </select>
-          <div
-            *ngIf="requestTorneoForm.controls.id_club.invalid && (requestTorneoForm.controls.id_club.dirty || requestTorneoForm.controls.id_club.touched)"
-            class="display-errors">
-            <app-display-input-validation-message [type]="requestTorneoForm.controls.id_club.errors">
-            </app-display-input-validation-message>
-          </div>
+          <label for="">{{userCreator.name}}</label>
         </div>
         <div class="box-singular-item">
           <label for="id_category">Categoría</label>

@@ -34,8 +34,10 @@ export class ModalAddCategoryComponent {
 
   async addCategory() {
     try {
+      const dataDecripted = JSON.parse(localStorage.getItem('user_logged')!);
       const body = {
         name: this.categoryForm.value.name,
+        id_creator: dataDecripted.id,
       };
       const response: any = await firstValueFrom(this.categoryService.addCategory(body));
       if (response.status) {

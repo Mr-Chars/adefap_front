@@ -94,6 +94,7 @@ export class ModalAddParticipantComponent {
 
   async addParticipant() {
     try {
+      const dataDecripted = JSON.parse(localStorage.getItem('user_logged')!);
       const body = {
         nombres: this.participantForm.value.nombres,
         apellido_paterno: this.participantForm.value.apellido_paterno,
@@ -107,6 +108,7 @@ export class ModalAddParticipantComponent {
         talla: this.participantForm.value.talla,
         peso: this.participantForm.value.peso,
         participantPhoto: this.participantForm.value.participantPhoto,
+        id_creator: dataDecripted.id,
       };
       const response: any = await firstValueFrom(this.participantService.addParticipant(body));
       if (response.status) {
